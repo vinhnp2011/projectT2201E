@@ -1,3 +1,5 @@
+package dao;
+
 public class SanPhamDao {
     private Long maNhomHang;
     private Long maVach;

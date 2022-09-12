@@ -1,3 +1,5 @@
+package dto;
+
 public class NhomHang {
     private Long maNhomHang;
     private String tenNhomHang;
@@ -8,5 +10,4 @@ public class NhomHang {
         this.tenNhomHang = tenNhomHang;
         this.vat = vat;
     }
-
 }

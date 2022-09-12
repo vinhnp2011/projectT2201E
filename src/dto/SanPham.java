@@ -1,3 +1,5 @@
+package dto;
+
 public class SanPham {
     private Long maNhomHang;
     private Long maVach;
