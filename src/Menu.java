@@ -24,13 +24,13 @@ public class Menu {
     }
 
     void MenuParent() {
-        System.out.println(" |---|---- Quan ly ban hang ---------| ");
+        System.out.println(" +---+---- Quan ly ban hang ---------+ ");
         System.out.println(" | 1.| CRUD nhom hang                | ");
         System.out.println(" | 2.| CRUD san pham                 | ");
         System.out.println(" | 3.| CRUD don hang                 | ");
         System.out.println(" | 4.| Bao cao                       | ");
         System.out.println(" | 5.| Ket thuc                      | ");
-        System.out.println(" |---|-------------------------------| ");
+        System.out.println(" +---+-------------------------------+ ");
 
         while (true) {
             System.out.print("=> Moi ban chon: ");
@@ -64,7 +64,7 @@ public class Menu {
     }
 
     void MenuChild(String name) {
-        System.out.println(" |---|----" + name + "---------");
+        System.out.println(" +---+----" + name + "---------");
         System.out.println(" | 1.| Them " + name + " ");
         System.out.println(" | 2.| Hien thi " + name + " ");
         if (name.equals(utils.SAN_PHAM)) {
@@ -74,7 +74,7 @@ public class Menu {
         } else {
             System.out.println(" | 3.| Ket thuc!             ");
         }
-        System.out.println(" |---|----------------------- ");
+        System.out.println(" +---+----------------------- ");
 
         while (true) {
             System.out.print("=> Moi ban chon: ");
