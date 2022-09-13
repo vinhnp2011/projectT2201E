@@ -1,7 +1,10 @@
 package service.impl;
 
+import dao.SanPhamDao;
 import dto.SanPham;
 import service.SanPhamService;
+
+import java.util.List;
 
 /**
  * @author VinhNP
@@ -16,7 +19,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public SanPham hienThi() {
+    public List<SanPhamDao> hienThi() {
         return null;
     }
 }

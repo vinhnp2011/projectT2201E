@@ -1,6 +1,5 @@
 package service;
 
-import dao.NhomHangDao;
 import dto.NhomHang;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 public interface NhomHangService {
     NhomHang them(NhomHang input);
 
-    List<NhomHangDao> hienThi();
+    List<NhomHang> hienThi();
 
     NhomHang timKiem(NhomHang inputSeach);
 

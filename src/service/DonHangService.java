@@ -1,6 +1,9 @@
 package service;
 
+import dao.DonHangDao;
 import dto.DonHang;
+
+import java.util.List;
 
 /**
  * @author VinhNP
@@ -9,7 +12,7 @@ import dto.DonHang;
  **/
 public interface DonHangService{
     DonHang them(DonHang input);
-    DonHang hienThi();
+    List<DonHangDao> hienThi();
     DonHang timKiem(DonHang inputSeach);
     DonHang capNhat(String name);
 }

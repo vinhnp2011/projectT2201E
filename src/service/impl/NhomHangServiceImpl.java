@@ -1,10 +1,8 @@
 package service.impl;
 
-import dao.NhomHangDao;
 import data.StoreData;
-import dto.DonHang;
 import dto.NhomHang;
-import service.DonHangService;
+import mapper.NhomHangMapper;
 import service.NhomHangService;
 
 import java.util.List;
@@ -16,15 +14,15 @@ import java.util.List;
  **/
 public class NhomHangServiceImpl implements NhomHangService {
     StoreData storeData = new StoreData();
-
+    NhomHangMapper nhomHangMapper = new NhomHangMapper();
     @Override
     public NhomHang them(NhomHang input) {
-        return null;
+        return storeData.save(nhomHangMapper.mapDtoToEntity(input));
     }
 
     @Override
-    public List<NhomHangDao> hienThi() {
-        return storeData.getNhomHang();
+    public List<NhomHang> hienThi() {
+        return nhomHangMapper.mapEntitiesToDtos(storeData.getNhomHang());
     }
 
     @Override

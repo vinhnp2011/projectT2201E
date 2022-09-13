@@ -1,17 +1,23 @@
 
-import com.bethecoder.ascii_table.ASCIITable;
-import com.bethecoder.ascii_table.impl.CollectionASCIITableAware;
-import com.bethecoder.ascii_table.spec.IASCIITableAware;
+
 import dao.NhomHangDao;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+import dto.NhomHang;
+import dto.SanPham;
 import service.DonHangService;
 import service.NhomHangService;
 import service.SanPhamService;
+import service.ShowTable;
 import service.impl.DonHangServiceImpl;
 import service.impl.NhomHangServiceImpl;
 import service.impl.SanPhamServiceImpl;
 
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author VinhNP
@@ -23,16 +29,36 @@ public class Aaction {
     DonHangService donHangService = new DonHangServiceImpl();
     NhomHangService nhomHangService = new NhomHangServiceImpl();
     SanPhamService sanPhamService = new SanPhamServiceImpl();
+    ShowTable showTable = new ShowTable();
 
     public Aaction() {
 
     }
 
 
+
+
     void addAction(String name) {
         switch (name) {
             case utils.NHOM_HANG:
+                Scanner sc = new Scanner(System.in);
+                NhomHang nhomHang = new NhomHang();
 
+                System.out.print("Ma nhom hang: ");
+                Long getMaNhomHang = sc.nextLong();
+
+                System.out.print("Ten nhom hang: ");
+                String getTenNhomHang = sc.next();
+
+                System.out.print("vat: ");
+                Double getVat = sc.nextDouble();
+
+                nhomHang.setMaNhomHang(getMaNhomHang);
+                nhomHang.setTenNhomHang(getTenNhomHang);
+                nhomHang.setVat(getVat);
+                System.out.println();
+//                nhomHangService.them(nhomHang);
+                showTable.showNhomHangTable(Arrays.asList(nhomHangService.them(nhomHang)));
                 break;
             case utils.SAN_PHAM:
 
@@ -43,24 +69,21 @@ public class Aaction {
         }
     }
 
-     void showAction(String name) {
+    void showAction(String name) {
         switch (name) {
             case utils.NHOM_HANG:
-                IASCIITableAware asciiTableAware =
-                        new CollectionASCIITableAware<NhomHangDao>(nhomHangService.hienThi(),
-                                "ma", "ten", "VAT");
-                ASCIITable.getInstance().printTable(asciiTableAware);
+                showTable.showNhomHangTable(nhomHangService.hienThi());
                 break;
             case utils.SAN_PHAM:
-                sanPhamService.hienThi();
+                showTable.showSanPhamTable(sanPhamService.hienThi());
                 break;
             case utils.DON_HANG:
-                donHangService.hienThi();
+                showTable.showDonHangTable(donHangService.hienThi());
                 break;
         }
     }
 
-    static void updateAction(String name) {
+    void updateAction(String name) {
         switch (name) {
             case utils.NHOM_HANG:
 
@@ -74,7 +97,7 @@ public class Aaction {
         }
     }
 
-    static void searchAction(String name) {
+    void searchAction(String name) {
         switch (name) {
             case utils.NHOM_HANG:
 

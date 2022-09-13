@@ -2,6 +2,7 @@ package data;
 
 import dao.NhomHangDao;
 import dto.NhomHang;
+import mapper.NhomHangMapper;
 
 /**
  * @author VinhNP
@@ -10,7 +11,7 @@ import dto.NhomHang;
  **/
 public class FakeData {
     StoreData storeData = new StoreData();
-
+    NhomHangMapper nhomHangMapper = new NhomHangMapper();
     public FakeData() {
         createFakeDataNhomHangDao();
     }
@@ -18,8 +19,8 @@ public class FakeData {
     public void createFakeDataNhomHangDao() {
         int fakeSzDataDefault = 5;
         for (int i = 0; i < fakeSzDataDefault; i++) {
-            NhomHangDao nhomHangDao = new NhomHangDao(Long.valueOf(i), "Ten nhom hang " + i, 5.0 + Double.valueOf(i));
-            storeData.save(nhomHangDao);
+            NhomHang nhomHang = new NhomHang(Long.valueOf(i), "Ten nhom hang " + i, 5.0 + Double.valueOf(i));
+            storeData.save(nhomHangMapper.mapDtoToEntity(nhomHang));
         }
     }
 }

@@ -1,7 +1,10 @@
 package service.impl;
 
+import dao.DonHangDao;
 import dto.DonHang;
 import service.DonHangService;
+
+import java.util.List;
 
 /**
  * @author VinhNP
@@ -16,7 +19,7 @@ public class DonHangServiceImpl implements DonHangService {
     }
 
     @Override
-    public DonHang hienThi() {
+    public List<DonHangDao> hienThi() {
         return null;
     }
 

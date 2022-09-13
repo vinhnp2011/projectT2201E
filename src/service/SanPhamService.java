@@ -1,6 +1,9 @@
 package service;
 
+import dao.SanPhamDao;
 import dto.SanPham;
+
+import java.util.List;
 
 /**
  * @author VinhNP
@@ -9,6 +12,6 @@ import dto.SanPham;
  **/
 public interface SanPhamService {
     SanPham them(SanPham input);
-    SanPham hienThi();
+    List<SanPhamDao> hienThi();
 
 }
