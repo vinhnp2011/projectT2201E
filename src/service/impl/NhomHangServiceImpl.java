@@ -1,11 +1,15 @@
 package service.impl;
 
+import dao.NhomHangDao;
 import data.StoreData;
 import dto.NhomHang;
 import mapper.NhomHangMapper;
 import service.NhomHangService;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author VinhNP
@@ -15,6 +19,7 @@ import java.util.List;
 public class NhomHangServiceImpl implements NhomHangService {
     StoreData storeData = new StoreData();
     NhomHangMapper nhomHangMapper = new NhomHangMapper();
+
     @Override
     public NhomHang them(NhomHang input) {
         return storeData.save(nhomHangMapper.mapDtoToEntity(input));
@@ -27,11 +32,26 @@ public class NhomHangServiceImpl implements NhomHangService {
 
     @Override
     public NhomHang timKiem(NhomHang inputSeach) {
-        return null;
+        Optional<NhomHangDao> nhomHang = storeData.getNhomHang().stream().filter(
+                obj -> obj.getMaNhomHang().equals(inputSeach.getMaNhomHang())
+        ).findFirst();
+        if (nhomHang.isEmpty()) {
+            return new NhomHang();
+        }
+        return nhomHangMapper.mapEntityToDto(nhomHang.get());
     }
 
     @Override
     public NhomHang capNhat(NhomHang inputSeach) {
-        return null;
+        storeData.getNhomHang().stream().forEach(
+                obj -> {
+                    if (obj.getMaNhomHang().equals(inputSeach.getMaNhomHang())) {
+                        obj.setMaNhomHang(inputSeach.getMaNhomHang());
+                        obj.setTenNhomHang(inputSeach.getTenNhomHang());
+                        obj.setVat(inputSeach.getVat());
+                    }
+                }
+        );
+        return timKiem(inputSeach);
     }
 }

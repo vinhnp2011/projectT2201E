@@ -35,29 +35,11 @@ public class Aaction {
 
     }
 
-
-
-
     void addAction(String name) {
         switch (name) {
             case utils.NHOM_HANG:
-                Scanner sc = new Scanner(System.in);
-                NhomHang nhomHang = new NhomHang();
+                NhomHang nhomHang = inputNhomHang("add");
 
-                System.out.print("Ma nhom hang: ");
-                Long getMaNhomHang = sc.nextLong();
-
-                System.out.print("Ten nhom hang: ");
-                String getTenNhomHang = sc.next();
-
-                System.out.print("vat: ");
-                Double getVat = sc.nextDouble();
-
-                nhomHang.setMaNhomHang(getMaNhomHang);
-                nhomHang.setTenNhomHang(getTenNhomHang);
-                nhomHang.setVat(getVat);
-                System.out.println();
-//                nhomHangService.them(nhomHang);
                 showTable.showNhomHangTable(Arrays.asList(nhomHangService.them(nhomHang)));
                 break;
             case utils.SAN_PHAM:
@@ -67,6 +49,27 @@ public class Aaction {
 
                 break;
         }
+    }
+    static Scanner sc = new Scanner(System.in);
+    private NhomHang inputNhomHang(String inputType) {
+        Long getMaNhomHang;
+        String getTenNhomHang;
+        Double getVat;
+        System.out.print("Ma nhom hang: ");
+         getMaNhomHang = sc.nextLong();
+        if(!inputType.equals("search")) {
+            System.out.print("Ten nhom hang: ");
+            getTenNhomHang = sc.next();
+
+            System.out.print("vat: ");
+            getVat = sc.nextDouble();
+        }else {
+            getTenNhomHang ="";
+            getVat = 0.0;
+        }
+        System.out.println();
+
+        return new NhomHang(getMaNhomHang,getTenNhomHang,getVat);
     }
 
     void showAction(String name) {
@@ -86,7 +89,8 @@ public class Aaction {
     void updateAction(String name) {
         switch (name) {
             case utils.NHOM_HANG:
-
+                NhomHang nhomHang = inputNhomHang("update");
+                showTable.showNhomHangTable(Arrays.asList(nhomHangService.capNhat(nhomHang)));
                 break;
             case utils.SAN_PHAM:
 
@@ -100,13 +104,12 @@ public class Aaction {
     void searchAction(String name) {
         switch (name) {
             case utils.NHOM_HANG:
-
+                NhomHang nhomHang = inputNhomHang("search");
+                showTable.showNhomHangTable(Arrays.asList(nhomHangService.timKiem(nhomHang)));
                 break;
             case utils.SAN_PHAM:
-
                 break;
             case utils.DON_HANG:
-
                 break;
         }
     }

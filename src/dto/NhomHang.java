@@ -1,5 +1,7 @@
 package dto;
 
+import java.lang.reflect.Field;
+
 public class NhomHang {
     private Long maNhomHang;
     private String tenNhomHang;
@@ -36,5 +38,19 @@ public class NhomHang {
         this.maNhomHang = maNhomHang;
         this.tenNhomHang = tenNhomHang;
         this.vat = vat;
+    }
+
+    public boolean isEmpty()  {
+        for (Field field : this.getClass().getDeclaredFields()) {
+            try {
+                field.setAccessible(true);
+                if (field.get(this)!=null) {
+                    return false;
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR NhomHang.isEmpty()");
+            }
+        }
+        return true;
     }
 }

@@ -11,6 +11,7 @@ import dto.NhomHang;
 import dto.SanPham;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author VinhNP
@@ -19,20 +20,28 @@ import java.util.List;
  **/
 public class ShowTable {
     public void showNhomHangTable(List<NhomHang> lsInput) {
-        AsciiTable at = new AsciiTable();
-        at.addRule();
-        at.addRow("Ma", "Ten", "VAT");
-        at.addRule();
-        for (NhomHang obj : lsInput) {
-            at.addRow(valueRow(obj.getMaNhomHang().toString()),
-                      valueRow(obj.getTenNhomHang()),
-                      valueRow(obj.getVat().toString()));
+            AsciiTable at = new AsciiTable();
             at.addRule();
-        }
-        at.setTextAlignment(TextAlignment.CENTER);
-        CWC_LongestLine cwc = new CWC_LongestLine();
-        at.getRenderer().setCWC(cwc);
-        System.out.println(at.render());
+            at.addRow("Ma", "Ten", "VAT");
+            at.addRule();
+            for (NhomHang obj : lsInput) {
+                if (obj.isEmpty()) {
+                    at.addRow(
+                            valueRow("N/A"),
+                            valueRow("N/A"),
+                            valueRow("N/A"));
+                    at.addRule();
+                } else {
+                    at.addRow(valueRow(obj.getMaNhomHang().toString()),
+                            valueRow(obj.getTenNhomHang()),
+                            valueRow(obj.getVat().toString()));
+                    at.addRule();
+                }
+            }
+            at.setTextAlignment(TextAlignment.CENTER);
+            CWC_LongestLine cwc = new CWC_LongestLine();
+            at.getRenderer().setCWC(cwc);
+            System.out.println(at.render());
     }
 
 
@@ -43,13 +52,13 @@ public class ShowTable {
         at.addRule();
         for (SanPhamDao obj : lsInput) {
             at.addRow(valueRow(obj.getMaNhomHang().toString()),
-                      valueRow(obj.getMaVach().toString()),
-                      valueRow(obj.getMaSpham().toString()),
-                      valueRow(obj.getTenSpham().toString()),
-                      valueRow(obj.getMoTa()),
-                      valueRow(obj.getGiaNhap().toString()),
-                      valueRow(obj.getGiaBan().toString()),
-                      valueRow(obj.getVat().toString()));
+                    valueRow(obj.getMaVach().toString()),
+                    valueRow(obj.getMaSpham().toString()),
+                    valueRow(obj.getTenSpham().toString()),
+                    valueRow(obj.getMoTa()),
+                    valueRow(obj.getGiaNhap().toString()),
+                    valueRow(obj.getGiaBan().toString()),
+                    valueRow(obj.getVat().toString()));
             at.addRule();
         }
         at.setTextAlignment(TextAlignment.CENTER);

@@ -24,15 +24,8 @@ public class Menu {
     }
 
     void MenuParent() {
-        System.out.println(" +---+---- Quan ly ban hang ---------+ ");
-        System.out.println(" | 1.| CRUD nhom hang                | ");
-        System.out.println(" | 2.| CRUD san pham                 | ");
-        System.out.println(" | 3.| CRUD don hang                 | ");
-        System.out.println(" | 4.| Bao cao                       | ");
-        System.out.println(" | 5.| Ket thuc                      | ");
-        System.out.println(" +---+-------------------------------+ ");
-
         while (true) {
+            MenuParentStr();
             System.out.print("=> Moi ban chon: ");
             int choose = scPar.nextInt();
             System.out.println();
@@ -64,19 +57,8 @@ public class Menu {
     }
 
     void MenuChild(String name) {
-        System.out.println(" +---+----" + name + "---------");
-        System.out.println(" | 1.| Them " + name + " ");
-        System.out.println(" | 2.| Hien thi " + name + " ");
-        if (name.equals(utils.SAN_PHAM)) {
-            System.out.println(" | 3.| Tim kiem " + name + " ");
-            System.out.println(" | 4.| Cap nhat " + name + " ");
-            System.out.println(" | 5.| Ket thuc!             ");
-        } else {
-            System.out.println(" | 3.| Ket thuc!             ");
-        }
-        System.out.println(" +---+----------------------- ");
-
         while (true) {
+            MenuChildStr(name);
             System.out.print("=> Moi ban chon: ");
             int choose = scChild.nextInt();
             System.out.println();
@@ -90,12 +72,17 @@ public class Menu {
                     action.showAction(name);
                     break;
                 case 3:
-                    System.out.println(" ==> Tim kiem " + name + " ");
-                    action.searchAction(name);
-                    break;
+                    if(!name.equals(utils.DON_HANG)) {
+                        System.out.println(" ==> Tim kiem " + name + " ");
+                        action.searchAction(name);
+                        break;
+                    }
+                    choose = 5;
                 case 4:
-                    System.out.println(" ==> Cap nhat " + name + " ");
-                    action.updateAction(name);
+                    if(!name.equals(utils.DON_HANG)){
+                        System.out.println(" ==> Cap nhat " + name + " ");
+                        action.updateAction(name);
+                    }
                     break;
                 case 5:
                     System.out.println(" ==> Ket thuc " + name + "! ");
@@ -107,5 +94,29 @@ public class Menu {
                 break;
             }
         }
+    }
+
+    private void MenuParentStr() {
+        System.out.println(" +---+---- Quan ly ban hang ---------+ ");
+        System.out.println(" | 1.| CRUD nhom hang                | ");
+        System.out.println(" | 2.| CRUD san pham                 | ");
+        System.out.println(" | 3.| CRUD don hang                 | ");
+        System.out.println(" | 4.| Bao cao                       | ");
+        System.out.println(" | 5.| Ket thuc                      | ");
+        System.out.println(" +---+-------------------------------+ ");
+    }
+
+    private void MenuChildStr(String name) {
+        System.out.println(" +---+----" + name + "---------");
+        System.out.println(" | 1.| Them " + name + " ");
+        System.out.println(" | 2.| Hien thi " + name + " ");
+        if (!name.equals(utils.DON_HANG)) {
+            System.out.println(" | 3.| Tim kiem " + name + " ");
+            System.out.println(" | 4.| Cap nhat " + name + " ");
+            System.out.println(" | 5.| Ket thuc!             ");
+        } else {
+            System.out.println(" | 3.| Ket thuc!             ");
+        }
+        System.out.println(" +---+----------------------- ");
     }
 }
