@@ -62,7 +62,7 @@ public class ShowTable {
     }
 
     public String valueRow(String output) {
-        return output + "\t \t \t";
+        return output + " \t \t \t ";
     }
 }
 
