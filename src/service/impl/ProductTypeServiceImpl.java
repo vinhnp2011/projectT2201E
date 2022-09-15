@@ -14,7 +14,7 @@ import java.util.Optional;
  * @description
  * @date(MM-dd-yyyy HH:mm) 09-12-2022 23:24
  **/
-public class NhomHangServiceImpl implements ProductTypeService {
+public class ProductTypeServiceImpl implements ProductTypeService {
     StoreData storeData = new StoreData();
     ProductTypeMapper productTypeMapper = new ProductTypeMapper();
 

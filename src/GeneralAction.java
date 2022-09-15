@@ -8,8 +8,8 @@ import service.ProductService;
 import utils.CommonUtils;
 import view.TableView;
 import service.impl.DonHangServiceImpl;
-import service.impl.NhomHangServiceImpl;
-import service.impl.SanPhamServiceImpl;
+import service.impl.ProductTypeServiceImpl;
+import service.impl.ProductServiceImpl;
 
 
 import java.util.Arrays;
@@ -25,22 +25,22 @@ import java.util.regex.Pattern;
 public class GeneralAction {
     static Scanner sc = new Scanner(System.in);
     DonHangService donHangService = new DonHangServiceImpl();
-    ProductTypeService nhomHangService = new NhomHangServiceImpl();
-    ProductService sanPhamService = new SanPhamServiceImpl();
+    ProductTypeService productTypeService = new ProductTypeServiceImpl();
+    ProductService productService = new ProductServiceImpl();
     TableView tableView = new TableView();
 
     void addAction(String name) {
         switch (name) {
             case CommonUtils.NHOM_HANG:
-                ProductType nhomHang = inputPrdType("add");
-                if (nhomHang.getIsSuccess()) {
-                    tableView.viewNhomHangTable(Arrays.asList(nhomHangService.addPrdType(nhomHang)));
+                ProductType productType = inputPrdType("add");
+                if (productType.getIsSuccess()) {
+                    tableView.viewNhomHangTable(Arrays.asList(productTypeService.addPrdType(productType)));
                 }
                 break;
             case CommonUtils.SAN_PHAM:
                 Product product = inputPrd("add");
 
-                System.out.println(sanPhamService.addPrd(product));
+                System.out.println(productService.addPrd(product));
                 break;
             case CommonUtils.DON_HANG:
 
@@ -51,10 +51,10 @@ public class GeneralAction {
     void showAction(String name) {
         switch (name) {
             case CommonUtils.NHOM_HANG:
-                tableView.viewNhomHangTable(nhomHangService.findAllByIdPrdType());
+                tableView.viewNhomHangTable(productTypeService.findAllByIdPrdType());
                 break;
             case CommonUtils.SAN_PHAM:
-                tableView.viewSanPhamTable(sanPhamService.findAllByIdPrd());
+                tableView.viewSanPhamTable(productService.findAllByIdPrd());
                 break;
             case CommonUtils.DON_HANG:
                 tableView.viewDonHangTable(donHangService.hienThi());
@@ -66,7 +66,7 @@ public class GeneralAction {
         switch (name) {
             case CommonUtils.NHOM_HANG:
                 ProductType nhomHang = inputPrdType("update");
-                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.updatePrdType(nhomHang)));
+                tableView.viewNhomHangTable(Arrays.asList(productTypeService.updatePrdType(nhomHang)));
                 break;
             case CommonUtils.SAN_PHAM:
 
@@ -81,7 +81,7 @@ public class GeneralAction {
         switch (name) {
             case CommonUtils.NHOM_HANG:
                 ProductType nhomHang = inputPrdType("search");
-                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.findByIdPrdType(nhomHang)));
+                tableView.viewNhomHangTable(Arrays.asList(productTypeService.findByIdPrdType(nhomHang)));
                 break;
             case CommonUtils.SAN_PHAM:
                 break;
@@ -95,7 +95,7 @@ public class GeneralAction {
 
         System.out.print("Danh sach nhom hang:");
         System.out.println();
-        List<ProductType> lsInput = nhomHangService.findAllByIdPrdType();
+        List<ProductType> lsInput = productTypeService.findAllByIdPrdType();
         tableView.viewNhomHangTable(lsInput);
         System.out.print("san pham nay thuoc nhom hang nao(Ghi ma so Nhom hang): ");
         String idPrdType = sc.next();
@@ -140,7 +140,7 @@ public class GeneralAction {
 
     void validatePrdType(ProductType nhomHang) {
         int countError = 0;
-        for (ProductType obj : nhomHangService.findAllByIdPrdType()) {
+        for (ProductType obj : productTypeService.findAllByIdPrdType()) {
             if (obj.getIdPrdType().equals(nhomHang.getIdPrdType())) {
                 CommonUtils.errorMess("error.input.idPrdType: Dau vao \"Ma nhom hang\" bi trung! Nhap lai!!");
                 countError++;

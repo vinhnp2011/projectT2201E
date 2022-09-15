@@ -14,7 +14,7 @@ import java.util.Optional;
  * @description
  * @date(MM-dd-yyyy HH:mm) 09-12-2022 23:24
  **/
-public class SanPhamServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
     StoreData storeData = new StoreData();
     ProductMapper productMapper = new ProductMapper();
 
