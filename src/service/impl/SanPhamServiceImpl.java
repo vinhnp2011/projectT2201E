@@ -3,10 +3,11 @@ package service.impl;
 import dao.ProductDAO;
 import data.StoreData;
 import dto.Product;
-import mapper.SanPhamMapper;
+import mapper.ProductMapper;
 import service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author VinhNP
@@ -15,15 +16,32 @@ import java.util.List;
  **/
 public class SanPhamServiceImpl implements ProductService {
     StoreData storeData = new StoreData();
-    SanPhamMapper sanPhamMapper = new SanPhamMapper();
+    ProductMapper productMapper = new ProductMapper();
+
     @Override
     public Product addPrd(Product input) {
-        ProductDAO productDAO = sanPhamMapper.mapDtoToEntity(input);
+        ProductDAO productDAO = productMapper.mapDtoToEntity(input);
         return  storeData.save(productDAO);
     }
 
     @Override
     public List<Product> findAllByIdPrd() {
+        return productMapper.mapEntitiesToDtos(storeData.getSanPham());
+    }
+
+    @Override
+    public Product findByIdPrd(Product inputSeach) {
+        Optional<ProductDAO> optionalProductDAO = storeData.getSanPham().stream().filter(
+                obj -> obj.getIdPrd().equals(inputSeach.getIdPrd())
+        ).findFirst();
+        if (optionalProductDAO.isEmpty()) {
+            return new Product();
+        }
+        return productMapper.mapEntityToDto(optionalProductDAO.get());
+    }
+
+    @Override
+    public Product updatePrd(Product inputSeach) {
         return null;
     }
 }

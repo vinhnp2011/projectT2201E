@@ -1,8 +1,8 @@
 package data;
 
 import dto.ProductType;
-import mapper.NhomHangMapper;
-import mapper.SanPhamMapper;
+import mapper.ProductTypeMapper;
+import mapper.ProductMapper;
 import utils.CommonUtils;
 
 /**
@@ -12,8 +12,8 @@ import utils.CommonUtils;
  **/
 public class FakeData {
     StoreData storeData = new StoreData();
-    NhomHangMapper nhomHangMapper = new NhomHangMapper();
-    SanPhamMapper sanPhamMapper = new SanPhamMapper();
+    ProductTypeMapper productTypeMapper = new ProductTypeMapper();
+    ProductMapper productMapper = new ProductMapper();
     public FakeData() {
         createFakeDataNhomHangDao();
 //        createFakeDataSanPhamDao();
@@ -26,7 +26,7 @@ public class FakeData {
                     CommonUtils.autoGenIdProdType(),
                     "Ten nhom hang " + i,
                     5.0 + Double.valueOf(i),Boolean.TRUE);
-            storeData.save(nhomHangMapper.mapDtoToEntity(nhomHang));
+            storeData.save(productTypeMapper.mapDtoToEntity(nhomHang));
         }
     }
 

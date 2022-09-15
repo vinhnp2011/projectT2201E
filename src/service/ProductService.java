@@ -1,6 +1,7 @@
 package service;
 
 import dto.Product;
+import dto.ProductType;
 
 import java.util.List;
 
@@ -13,5 +14,9 @@ public interface ProductService {
 
     Product addPrd(Product input);
     List<Product> findAllByIdPrd();
+
+    Product findByIdPrd(Product inputSeach);
+
+    Product updatePrd(Product inputSeach);
 
 }

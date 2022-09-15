@@ -11,7 +11,7 @@ import java.util.List;
  * @description
  * @date(MM-dd-yyyy HH:mm) 09-13-2022 23:25
  **/
-public class NhomHangMapper {
+public class ProductTypeMapper {
     public ProductType mapEntityToDto(ProductTypeDAO nhomHangDao){
         ProductType nhomHang = new ProductType();
         nhomHang.setIdPrdType(nhomHangDao.getIdProductType());

@@ -11,7 +11,7 @@ import java.util.List;
  * @description
  * @date(MM-dd-yyyy HH:mm) 09-13-2022 23:25
  **/
-public class SanPhamMapper {
+public class ProductMapper {
 
     public Product mapEntityToDto(ProductDAO productDAO) {
         Product product = new Product();

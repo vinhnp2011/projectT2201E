@@ -3,7 +3,7 @@ package service.impl;
 import dao.ProductTypeDAO;
 import data.StoreData;
 import dto.ProductType;
-import mapper.NhomHangMapper;
+import mapper.ProductTypeMapper;
 import service.ProductTypeService;
 
 import java.util.List;
@@ -16,16 +16,16 @@ import java.util.Optional;
  **/
 public class NhomHangServiceImpl implements ProductTypeService {
     StoreData storeData = new StoreData();
-    NhomHangMapper nhomHangMapper = new NhomHangMapper();
+    ProductTypeMapper productTypeMapper = new ProductTypeMapper();
 
     @Override
     public ProductType addPrdType(ProductType input) {
-        return storeData.save(nhomHangMapper.mapDtoToEntity(input));
+        return storeData.save(productTypeMapper.mapDtoToEntity(input));
     }
 
     @Override
     public List<ProductType> findAllByIdPrdType() {
-        return nhomHangMapper.mapEntitiesToDtos(storeData.getNhomHang());
+        return productTypeMapper.mapEntitiesToDtos(storeData.getNhomHang());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class NhomHangServiceImpl implements ProductTypeService {
         if (nhomHang.isEmpty()) {
             return new ProductType();
         }
-        return nhomHangMapper.mapEntityToDto(nhomHang.get());
+        return productTypeMapper.mapEntityToDto(nhomHang.get());
     }
 
     @Override
