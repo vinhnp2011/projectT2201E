@@ -1,10 +1,10 @@
 
 
-import dto.NhomHang;
-import dto.SanPham;
+import dto.ProductType;
+import dto.Product;
 import service.DonHangService;
-import service.NhomHangService;
-import service.SanPhamService;
+import service.ProductTypeService;
+import service.ProductService;
 import utils.CommonUtils;
 import view.TableView;
 import service.impl.DonHangServiceImpl;
@@ -15,6 +15,7 @@ import service.impl.SanPhamServiceImpl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * @author VinhNP
@@ -24,25 +25,22 @@ import java.util.Scanner;
 public class GeneralAction {
     static Scanner sc = new Scanner(System.in);
     DonHangService donHangService = new DonHangServiceImpl();
-    NhomHangService nhomHangService = new NhomHangServiceImpl();
-    SanPhamService sanPhamService = new SanPhamServiceImpl();
+    ProductTypeService nhomHangService = new NhomHangServiceImpl();
+    ProductService sanPhamService = new SanPhamServiceImpl();
     TableView tableView = new TableView();
-
-    public GeneralAction() {
-
-    }
 
     void addAction(String name) {
         switch (name) {
             case CommonUtils.NHOM_HANG:
-                NhomHang nhomHang = inputNhomHang("add");
-
-                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.them(nhomHang)));
+                ProductType nhomHang = inputPrdType("add");
+                if (nhomHang.getIsSuccess()) {
+                    tableView.viewNhomHangTable(Arrays.asList(nhomHangService.addPrdType(nhomHang)));
+                }
                 break;
             case CommonUtils.SAN_PHAM:
-                SanPham sanPham = inputSanPham("add");
+                Product product = inputPrd("add");
 
-                System.out.println(sanPhamService.them(sanPham));
+                System.out.println(sanPhamService.addPrd(product));
                 break;
             case CommonUtils.DON_HANG:
 
@@ -50,57 +48,13 @@ public class GeneralAction {
         }
     }
 
-    private SanPham inputSanPham(String inputType) {
-        SanPham sanPham = new SanPham();
-
-        System.out.print("Danh sach nhom hang:");
-        System.out.println();
-        List<NhomHang> lsInput = nhomHangService.hienThi();
-        tableView.viewNhomHangTable(lsInput);
-        System.out.print("san pham nay thuoc nhom hang nao(Ghi ma so Nhom hang): ");
-        String idPrdType = sc.next();
-
-        sanPham.setMaNhomHang(idPrdType);
-
-        String getMaSanPham = CommonUtils.autoGenIdProduct(idPrdType);
-        sanPham.setMaSphamStr(getMaSanPham);
-        return sanPham;
-
-    }
-
-
-    private NhomHang inputNhomHang(String inputType) {
-        String getMaNhomHang;
-        String getTenNhomHang;
-        Double getVat;
-        getMaNhomHang = CommonUtils.autoGenIdProdType();
-        if (!inputType.equals("search")) {
-
-            System.out.print("Ten nhom hang: ");
-            getTenNhomHang = sc.next();
-
-            System.out.print("vat: ");
-            getVat = sc.nextDouble();
-
-        } else {
-
-            System.out.print("Ma nhom hang: ");
-            getMaNhomHang = sc.next();
-            getTenNhomHang = "";
-            getVat = 0.0;
-        }
-        System.out.println();
-
-        return new NhomHang(getMaNhomHang, getTenNhomHang, getVat);
-    }
-
     void showAction(String name) {
         switch (name) {
             case CommonUtils.NHOM_HANG:
-                tableView.viewNhomHangTable(nhomHangService.hienThi());
+                tableView.viewNhomHangTable(nhomHangService.findAllByIdPrdType());
                 break;
             case CommonUtils.SAN_PHAM:
-                tableView.viewSanPhamTable(sanPhamService.hienThi());
+                tableView.viewSanPhamTable(sanPhamService.findAllByIdPrd());
                 break;
             case CommonUtils.DON_HANG:
                 tableView.viewDonHangTable(donHangService.hienThi());
@@ -111,8 +65,8 @@ public class GeneralAction {
     void updateAction(String name) {
         switch (name) {
             case CommonUtils.NHOM_HANG:
-                NhomHang nhomHang = inputNhomHang("update");
-                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.capNhat(nhomHang)));
+                ProductType nhomHang = inputPrdType("update");
+                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.updatePrdType(nhomHang)));
                 break;
             case CommonUtils.SAN_PHAM:
 
@@ -126,13 +80,92 @@ public class GeneralAction {
     void searchAction(String name) {
         switch (name) {
             case CommonUtils.NHOM_HANG:
-                NhomHang nhomHang = inputNhomHang("search");
-                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.timKiem(nhomHang)));
+                ProductType nhomHang = inputPrdType("search");
+                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.findByIdPrdType(nhomHang)));
                 break;
             case CommonUtils.SAN_PHAM:
                 break;
             case CommonUtils.DON_HANG:
                 break;
+        }
+    }
+
+    private Product inputPrd(String inputType) {
+        Product product = new Product();
+
+        System.out.print("Danh sach nhom hang:");
+        System.out.println();
+        List<ProductType> lsInput = nhomHangService.findAllByIdPrdType();
+        tableView.viewNhomHangTable(lsInput);
+        System.out.print("san pham nay thuoc nhom hang nao(Ghi ma so Nhom hang): ");
+        String idPrdType = sc.next();
+
+        product.setIdPrdType(idPrdType);
+
+        String idPrd = CommonUtils.autoGenIdProduct(idPrdType);
+        product.setIdPrd(idPrd);
+        return product;
+    }
+
+    private ProductType inputPrdType(String inputType) {
+        ProductType productType = new ProductType();
+        String idPrdType;
+//        getIdPrdType = CommonUtils.autoGenIdProdType();
+        System.out.print("Ma nhom hang: ");
+        idPrdType = sc.nextLine();
+        String getTenNhomHang = "";
+        Double getVat = 0.0;
+        if (!inputType.equals("search")) {
+
+            System.out.print("Ten nhom hang: ");
+            getTenNhomHang = sc.nextLine();
+            System.out.print("VAT: ");
+            try {
+                getVat = Double.parseDouble(sc.nextLine());
+            } catch (RuntimeException e) {
+                System.out.println("error.input.vat: VAT chi duoc phep dien so!");
+                productType.setIsSuccess(Boolean.FALSE);
+                return productType;
+            }
+        } else {
+            System.out.print("Ma nhom hang: ");
+            idPrdType = sc.nextLine();
+        }
+        productType = new ProductType(idPrdType, getTenNhomHang, getVat, Boolean.TRUE);
+
+        validatePrdType(productType);
+
+        return productType;
+    }
+
+    void validatePrdType(ProductType nhomHang) {
+        int countError = 0;
+        for (ProductType obj : nhomHangService.findAllByIdPrdType()) {
+            if (obj.getIdPrdType().equals(nhomHang.getIdPrdType())) {
+                CommonUtils.errorMess("error.input.idPrdType: Dau vao \"Ma nhom hang\" bi trung! Nhap lai!!");
+                countError++;
+            }
+        }
+        if (!(nhomHang.getVat() >= 0) || !(nhomHang.getVat() <= 1)) {
+            CommonUtils.errorMess("error.input.vat: Dau vao \"VAT\" chi nam trong pham vi tu 0 -> 1!");
+            countError++;
+        }
+        if (Pattern.compile(" ").matcher(nhomHang.getNamePrdType()).find()) {
+            CommonUtils.errorMess("error.input.namePrdType: Dau vao \"Ten nhom hang\" Khong duoc co khoang trang!");
+            countError++;
+        }
+        if (countError > 0) {
+            nhomHang.setIsSuccess(Boolean.FALSE);
+        }
+    }
+
+    void validatePrd(Product product) {
+        int countError = 0;
+        //TODO: tao validate tai day
+
+
+        if (countError > 0) {
+            product.setIsSuccess(Boolean.FALSE);
         }
     }
 }

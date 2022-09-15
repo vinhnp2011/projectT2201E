@@ -15,7 +15,7 @@ public class DonHang {
 
     private Long maKH;
     private String tenKH;
-    private List<SanPham> dsSpham;
+    private List<Product> productList;
     private LocalDateTime ngayMuahang;
 
 }

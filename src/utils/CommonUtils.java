@@ -17,36 +17,45 @@ public class CommonUtils {
     public static String autoGenIdProduct(String idPrdType){
         StringBuffer output = new StringBuffer();
         output.append(idPrdType);
-        Integer a = StoreData.sizeSanPham;
+        Integer idIdPrd = StoreData.sizeSanPham;
         int maxIdPrdLength = 4;
-        int nowGenIdPrd = a.toString().length();
-
-        if(nowGenIdPrd <= maxIdPrdLength){
-            Integer x = maxIdPrdLength - nowGenIdPrd;
+        int nowGenIdPrdLength = idIdPrd.toString().length();
+        if(nowGenIdPrdLength <= maxIdPrdLength){
+            Integer x = maxIdPrdLength - nowGenIdPrdLength;
 
             for (int i = 0; i < x; i++) {
                 output.append("0");
             }
         }
-        output.append(a);
+        output.append(idIdPrd);
         return output.toString();
     }
 
     public static String autoGenIdProdType(){
         StringBuffer output = new StringBuffer();
         output.append("NH");
-        Integer a = StoreData.sizeNhomHang;
+        Integer idIdPrdType = StoreData.sizeNhomHang;
+        Integer prefixIdPrdTypeLength = output.length();
         int maxIdPrdLength = 4;
-        int nowGenIdPrd = a.toString().length();
+        int idIdPrdTypeLength = StoreData.sizeNhomHang.toString().length();
 
-        if(nowGenIdPrd <= maxIdPrdLength){
-            Integer x = maxIdPrdLength - nowGenIdPrd;
+        if(idIdPrdTypeLength <= (maxIdPrdLength - prefixIdPrdTypeLength)){
+            Integer x = maxIdPrdLength - idIdPrdTypeLength - prefixIdPrdTypeLength;
 
             for (int i = 0; i < x; i++) {
                 output.append("0");
             }
         }
-        output.append(a);
+        output.append(idIdPrdType);
         return output.toString();
+    }
+
+    public static void errorMess(String x) {
+        try {
+            throw new RuntimeException();
+        } catch (Exception e) {
+            System.out.println(x);
+
+        }
     }
 }

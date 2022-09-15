@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NhomHangDao {
-    private String maNhomHang;
-    private String tenNhomHang;
+public class ProductTypeDAO {
+    private String idProductType;
+    private String namePrdType;
     private Double vat;
+
 }

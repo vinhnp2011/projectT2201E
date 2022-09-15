@@ -1,10 +1,10 @@
 package service.impl;
 
-import dao.SanPhamDao;
+import dao.ProductDAO;
 import data.StoreData;
-import dto.SanPham;
+import dto.Product;
 import mapper.SanPhamMapper;
-import service.SanPhamService;
+import service.ProductService;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import java.util.List;
  * @description
  * @date(MM-dd-yyyy HH:mm) 09-12-2022 23:24
  **/
-public class SanPhamServiceImpl implements SanPhamService {
+public class SanPhamServiceImpl implements ProductService {
     StoreData storeData = new StoreData();
     SanPhamMapper sanPhamMapper = new SanPhamMapper();
     @Override
-    public SanPham them(SanPham input) {
-        SanPhamDao sanPhamDao = sanPhamMapper.mapDtoToEntity(input);
-        return  storeData.save(sanPhamDao);
+    public Product addPrd(Product input) {
+        ProductDAO productDAO = sanPhamMapper.mapDtoToEntity(input);
+        return  storeData.save(productDAO);
     }
 
     @Override
-    public List<SanPhamDao> hienThi() {
+    public List<Product> findAllByIdPrd() {
         return null;
     }
 }

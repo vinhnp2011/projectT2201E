@@ -1,6 +1,6 @@
 package dao;
 
-import dto.SanPham;
+import dto.Product;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DonHangDao {
     private String tenKH;
-    private List<SanPham> dsSpham;
+    private List<Product> dsSpham;
     private LocalDateTime ngayMuahang;
 }

@@ -1,57 +1,55 @@
 package service.impl;
 
-import dao.NhomHangDao;
+import dao.ProductTypeDAO;
 import data.StoreData;
-import dto.NhomHang;
+import dto.ProductType;
 import mapper.NhomHangMapper;
-import service.NhomHangService;
+import service.ProductTypeService;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author VinhNP
  * @description
  * @date(MM-dd-yyyy HH:mm) 09-12-2022 23:24
  **/
-public class NhomHangServiceImpl implements NhomHangService {
+public class NhomHangServiceImpl implements ProductTypeService {
     StoreData storeData = new StoreData();
     NhomHangMapper nhomHangMapper = new NhomHangMapper();
 
     @Override
-    public NhomHang them(NhomHang input) {
+    public ProductType addPrdType(ProductType input) {
         return storeData.save(nhomHangMapper.mapDtoToEntity(input));
     }
 
     @Override
-    public List<NhomHang> hienThi() {
+    public List<ProductType> findAllByIdPrdType() {
         return nhomHangMapper.mapEntitiesToDtos(storeData.getNhomHang());
     }
 
     @Override
-    public NhomHang timKiem(NhomHang inputSeach) {
-        Optional<NhomHangDao> nhomHang = storeData.getNhomHang().stream().filter(
-                obj -> obj.getMaNhomHang().equals(inputSeach.getMaNhomHang())
+    public ProductType findByIdPrdType(ProductType inputSeach) {
+        Optional<ProductTypeDAO> nhomHang = storeData.getNhomHang().stream().filter(
+                obj -> obj.getIdProductType().equals(inputSeach.getIdPrdType())
         ).findFirst();
         if (nhomHang.isEmpty()) {
-            return new NhomHang();
+            return new ProductType();
         }
         return nhomHangMapper.mapEntityToDto(nhomHang.get());
     }
 
     @Override
-    public NhomHang capNhat(NhomHang inputSeach) {
+    public ProductType updatePrdType(ProductType inputSeach) {
         storeData.getNhomHang().stream().forEach(
                 obj -> {
-                    if (obj.getMaNhomHang().equals(inputSeach.getMaNhomHang())) {
-                        obj.setMaNhomHang(inputSeach.getMaNhomHang());
-                        obj.setTenNhomHang(inputSeach.getTenNhomHang());
+                    if (obj.getIdProductType().equals(inputSeach.getIdPrdType())) {
+                        obj.setIdProductType(inputSeach.getIdPrdType());
+                        obj.setNamePrdType(inputSeach.getNamePrdType());
                         obj.setVat(inputSeach.getVat());
                     }
                 }
         );
-        return timKiem(inputSeach);
+        return findByIdPrdType(inputSeach);
     }
 }

@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NhomHang {
-    private String maNhomHang;
-    private String tenNhomHang;
+public class ProductType {
+    private String idPrdType;
+    private String namePrdType;
     private Double vat;
+    private Boolean isSuccess;
 
     public boolean isEmpty()  {
         for (Field field : this.getClass().getDeclaredFields()) {
@@ -22,7 +23,7 @@ public class NhomHang {
                     return false;
                 }
             } catch (Exception e) {
-                System.out.println("ERROR NhomHang.isEmpty()");
+                System.out.println("ERROR ProductType.isEmpty()");
             }
         }
         return true;

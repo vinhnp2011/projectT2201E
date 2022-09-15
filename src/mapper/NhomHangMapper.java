@@ -1,8 +1,8 @@
 package mapper;
 import java.util.ArrayList;
 
-import dao.NhomHangDao;
-import dto.NhomHang;
+import dao.ProductTypeDAO;
+import dto.ProductType;
 
 import java.util.List;
 
@@ -12,51 +12,51 @@ import java.util.List;
  * @date(MM-dd-yyyy HH:mm) 09-13-2022 23:25
  **/
 public class NhomHangMapper {
-    public NhomHang mapEntityToDto(NhomHangDao nhomHangDao){
-        NhomHang nhomHang = new NhomHang();
-        nhomHang.setMaNhomHang(nhomHangDao.getMaNhomHang());
-        nhomHang.setTenNhomHang(nhomHangDao.getTenNhomHang());
+    public ProductType mapEntityToDto(ProductTypeDAO nhomHangDao){
+        ProductType nhomHang = new ProductType();
+        nhomHang.setIdPrdType(nhomHangDao.getIdProductType());
+        nhomHang.setNamePrdType(nhomHangDao.getNamePrdType());
         nhomHang.setVat(nhomHangDao.getVat());
         return nhomHang;
     }
 
-    public List<NhomHang> mapEntitiesToDtos(List<NhomHangDao> nhomHangDaos){
-        List<NhomHang> nhomHanglist=new ArrayList<>();
-        for (NhomHangDao nhomHangDao :nhomHangDaos) {
+    public List<ProductType> mapEntitiesToDtos(List<ProductTypeDAO> nhomHangDaos){
+        List<ProductType> nhomHanglist=new ArrayList<>();
+        for (ProductTypeDAO nhomHangDao :nhomHangDaos) {
         	nhomHanglist.add(convertFromNhomHangDao(nhomHangDao));
         }
         return nhomHanglist;
 
     }
 
-    private NhomHang convertFromNhomHangDao(NhomHangDao nhomHangDao) {
-        NhomHang nhomHang = new NhomHang();
-        nhomHang.setMaNhomHang(nhomHangDao.getMaNhomHang());
-        nhomHang.setTenNhomHang(nhomHangDao.getTenNhomHang());
+    private ProductType convertFromNhomHangDao(ProductTypeDAO nhomHangDao) {
+        ProductType nhomHang = new ProductType();
+        nhomHang.setIdPrdType(nhomHangDao.getIdProductType());
+        nhomHang.setNamePrdType(nhomHangDao.getNamePrdType());
         nhomHang.setVat(nhomHangDao.getVat());
         return nhomHang;
     }
 
-    public NhomHangDao mapDtoToEntity(NhomHang nhomHang){
-        NhomHangDao nhomHangDao = new NhomHangDao();
-        nhomHangDao.setMaNhomHang(nhomHang.getMaNhomHang());
-        nhomHangDao.setTenNhomHang(nhomHang.getTenNhomHang());
+    public ProductTypeDAO mapDtoToEntity(ProductType nhomHang){
+        ProductTypeDAO nhomHangDao = new ProductTypeDAO();
+        nhomHangDao.setIdProductType(nhomHang.getIdPrdType());
+        nhomHangDao.setNamePrdType(nhomHang.getNamePrdType());
         nhomHangDao.setVat(nhomHang.getVat());
         return nhomHangDao;
     }
 
-    public List<NhomHangDao> mapDtosToEntities(List<NhomHang> nhomHangDaos){
-        List<NhomHangDao> nhomHangDaolist=new ArrayList<>();
-        for (NhomHang nhomHang :nhomHangDaos) {
+    public List<ProductTypeDAO> mapDtosToEntities(List<ProductType> nhomHangDaos){
+        List<ProductTypeDAO> nhomHangDaolist=new ArrayList<>();
+        for (ProductType nhomHang :nhomHangDaos) {
         	nhomHangDaolist.add(convertFromNhomHang(nhomHang));
         }
         return nhomHangDaolist;
     }
 
-    private NhomHangDao convertFromNhomHang(NhomHang nhomHang) {
-        NhomHangDao nhomHangDao = new NhomHangDao();
-        nhomHangDao.setMaNhomHang(nhomHang.getMaNhomHang());
-        nhomHangDao.setTenNhomHang(nhomHang.getTenNhomHang());
+    private ProductTypeDAO convertFromNhomHang(ProductType nhomHang) {
+        ProductTypeDAO nhomHangDao = new ProductTypeDAO();
+        nhomHangDao.setIdProductType(nhomHang.getIdPrdType());
+        nhomHangDao.setNamePrdType(nhomHang.getNamePrdType());
         nhomHangDao.setVat(nhomHang.getVat());
         return nhomHangDao;
     }

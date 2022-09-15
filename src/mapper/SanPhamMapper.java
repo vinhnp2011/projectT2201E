@@ -1,7 +1,7 @@
 package mapper;
 
-import dao.SanPhamDao;
-import dto.SanPham;
+import dao.ProductDAO;
+import dto.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,81 +13,47 @@ import java.util.List;
  **/
 public class SanPhamMapper {
 
-    public SanPham mapEntityToDto(SanPhamDao sanPhamDao) {
-        SanPham sanPham = new SanPham();
-        sanPham.setMaNhomHang(sanPhamDao.getMaNhomHang());
-        sanPham.setMaVach(sanPhamDao.getMaVach());
-        sanPham.setMaSpham(sanPhamDao.getMaSpham());
-        sanPham.setMaSphamStr(sanPhamDao.getMaSphamStr());
-        sanPham.setTenSpham(sanPhamDao.getTenSpham());
-        sanPham.setMoTa(sanPhamDao.getMoTa());
-        sanPham.setGiaNhap(sanPhamDao.getGiaNhap());
-        sanPham.setGiaBan(sanPhamDao.getGiaBan());
-        sanPham.setVat(sanPhamDao.getVat());
-        return sanPham;
-
+    public Product mapEntityToDto(ProductDAO productDAO) {
+        Product product = new Product();
+        product.setIdPrdType(productDAO.getIdPrdType());
+        product.setBarcodePrd(productDAO.getBarcodePrd());
+        product.setIdPrd(productDAO.getIdPrd());
+        product.setNamePrd(productDAO.getNamePrd());
+        product.setDescPrd(productDAO.getDescPrd());
+        product.setImPricePrd(productDAO.getImPricePrd());
+        product.setExPricePrd(productDAO.getExPricePrd());
+        product.setVat(productDAO.getVat());
+        return product;
     }
 
-    public List<SanPham> mapEntitiesToDtos(List<SanPhamDao> sanPhamDaos) {
-        List<SanPham> sanPhamlist = new ArrayList<>();
-        for (SanPhamDao sanPhamDao : sanPhamDaos) {
-            sanPhamlist.add(convertFromSanPhamDao(sanPhamDao));
+    public ProductDAO mapDtoToEntity(Product product) {
+        ProductDAO productDAO = new ProductDAO();
+        productDAO.setIdPrdType(product.getIdPrdType());
+        productDAO.setBarcodePrd(product.getBarcodePrd());
+        productDAO.setIdPrd(product.getIdPrd());
+        productDAO.setNamePrd(product.getNamePrd());
+        productDAO.setDescPrd(product.getDescPrd());
+        productDAO.setImPricePrd(product.getImPricePrd());
+        productDAO.setExPricePrd(product.getExPricePrd());
+        productDAO.setVat(product.getVat());
+        return productDAO;
+    }
+
+    public List<Product> mapEntitiesToDtos(List<ProductDAO> productDAOS) {
+        List<Product> sanPhamlist = new ArrayList<>();
+        for (ProductDAO productDAO : productDAOS) {
+            sanPhamlist.add(mapEntityToDto(productDAO));
         }
         return sanPhamlist;
-
     }
 
-    private SanPham convertFromSanPhamDao(SanPhamDao sanPhamDao) {
-        SanPham sanPham = new SanPham();
-        sanPham.setMaNhomHang(sanPhamDao.getMaNhomHang());
-        sanPham.setMaVach(sanPhamDao.getMaVach());
-        sanPham.setMaSpham(sanPhamDao.getMaSpham());
-        sanPham.setMaSphamStr(sanPhamDao.getMaSphamStr());
-        sanPham.setTenSpham(sanPhamDao.getTenSpham());
-        sanPham.setMoTa(sanPhamDao.getMoTa());
-        sanPham.setGiaNhap(sanPhamDao.getGiaNhap());
-        sanPham.setGiaBan(sanPhamDao.getGiaBan());
-        sanPham.setVat(sanPhamDao.getVat());
-        return sanPham;
-    }
-
-
-    public SanPhamDao mapDtoToEntity(SanPham sanPham) {
-        SanPhamDao sanPhamDao = new SanPhamDao();
-        sanPhamDao.setMaNhomHang(sanPham.getMaNhomHang());
-        sanPhamDao.setMaVach(sanPham.getMaVach());
-        sanPhamDao.setMaSpham(sanPham.getMaSpham());
-        sanPhamDao.setMaSphamStr(sanPham.getMaSphamStr());
-        sanPhamDao.setTenSpham(sanPham.getTenSpham());
-        sanPhamDao.setMoTa(sanPham.getMoTa());
-        sanPhamDao.setGiaNhap(sanPham.getGiaNhap());
-        sanPhamDao.setGiaBan(sanPham.getGiaBan());
-        sanPhamDao.setVat(sanPham.getVat());
-        return sanPhamDao;
-
-    }
-
-    public List<SanPhamDao> mapDtosToEntities(List<SanPham> sanPhamList) {
-        List<SanPhamDao> sanPhamDaolist = new ArrayList<>();
-        for (SanPham sanPham : sanPhamList) {
-            sanPhamDaolist.add(convertFromSanPham(sanPham));
+    public List<ProductDAO> mapDtosToEntities(List<Product> productList) {
+        List<ProductDAO> sanPhamDaolist = new ArrayList<>();
+        for (Product product : productList) {
+            sanPhamDaolist.add(mapDtoToEntity(product));
         }
         return sanPhamDaolist;
 
-    }
-
-    private SanPhamDao convertFromSanPham(SanPham sanPham) {
-        SanPhamDao sanPhamDao = new SanPhamDao();
-        sanPhamDao.setMaNhomHang(sanPham.getMaNhomHang());
-        sanPhamDao.setMaVach(sanPham.getMaVach());
-        sanPhamDao.setMaSpham(sanPham.getMaSpham());
-        sanPhamDao.setMaSphamStr(sanPham.getMaSphamStr());
-        sanPhamDao.setTenSpham(sanPham.getTenSpham());
-        sanPhamDao.setMoTa(sanPham.getMoTa());
-        sanPhamDao.setGiaNhap(sanPham.getGiaNhap());
-        sanPhamDao.setGiaBan(sanPham.getGiaBan());
-        sanPhamDao.setVat(sanPham.getVat());
-        return sanPhamDao;
     }
 
 

@@ -1,11 +1,10 @@
 package data;
 
 import dao.DonHangDao;
-import dao.NhomHangDao;
-import dao.SanPhamDao;
-import dto.DonHang;
-import dto.NhomHang;
-import dto.SanPham;
+import dao.ProductTypeDAO;
+import dao.ProductDAO;
+import dto.ProductType;
+import dto.Product;
 import mapper.NhomHangMapper;
 import mapper.SanPhamMapper;
 
@@ -17,8 +16,8 @@ import java.util.ArrayList;
  * @date(MM-dd-yyyy HH:mm) 09-12-2022 23:57
  **/
 public class StoreData {
-    static ArrayList<NhomHangDao> nhomHangs  = new ArrayList<>();
-    static ArrayList<SanPhamDao>  sanPhams = new ArrayList<>();
+    static ArrayList<ProductTypeDAO> nhomHangs  = new ArrayList<>();
+    static ArrayList<ProductDAO>  sanPhams = new ArrayList<>();
     static ArrayList<DonHangDao>  donHangs = new ArrayList<>();
 
     public static Integer sizeNhomHang = nhomHangs.size();
@@ -32,7 +31,7 @@ public class StoreData {
 
     }
 
-    public ArrayList<NhomHangDao> getNhomHang() {
+    public ArrayList<ProductTypeDAO> getNhomHang() {
         return nhomHangs;
     }
 
@@ -40,11 +39,11 @@ public class StoreData {
         return donHangs;
     }
 
-    public ArrayList<SanPhamDao> getSanPham() {
+    public ArrayList<ProductDAO> getSanPham() {
         return sanPhams;
     }
 
-    public NhomHang save(NhomHangDao nhomHangDao) {
+    public ProductType save(ProductTypeDAO nhomHangDao) {
         this.nhomHangs.add(nhomHangDao);
         sizeNhomHang =nhomHangs.size();
         return nhomHangMapper.mapEntityToDto(nhomHangDao);
@@ -54,10 +53,10 @@ public class StoreData {
 //        this.donHangs.add(nhomHangMapper.mapDtoToEntity(donHang));
 //    }
 
-    public SanPham save(SanPhamDao sanPhamDao) {
-        this.sanPhams.add(sanPhamDao);
+    public Product save(ProductDAO productDAO) {
+        this.sanPhams.add(productDAO);
         sizeSanPham =sanPhams.size();
-        return sanPhamMapper.mapEntityToDto(sanPhamDao);
+        return sanPhamMapper.mapEntityToDto(productDAO);
 
     }
 }
