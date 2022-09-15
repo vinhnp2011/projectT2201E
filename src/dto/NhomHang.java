@@ -2,43 +2,17 @@ package dto;
 
 import java.lang.reflect.Field;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class NhomHang {
-    private Long maNhomHang;
+    private String maNhomHang;
     private String tenNhomHang;
     private Double vat;
-
-    public Long getMaNhomHang() {
-        return maNhomHang;
-    }
-
-    public void setMaNhomHang(Long maNhomHang) {
-        this.maNhomHang = maNhomHang;
-    }
-
-    public String getTenNhomHang() {
-        return tenNhomHang;
-    }
-
-    public void setTenNhomHang(String tenNhomHang) {
-        this.tenNhomHang = tenNhomHang;
-    }
-
-    public Double getVat() {
-        return vat;
-    }
-
-    public void setVat(Double vat) {
-        this.vat = vat;
-    }
-
-    public NhomHang() {
-    }
-
-    public NhomHang(Long maNhomHang, String tenNhomHang, Double vat) {
-        this.maNhomHang = maNhomHang;
-        this.tenNhomHang = tenNhomHang;
-        this.vat = vat;
-    }
 
     public boolean isEmpty()  {
         for (Field field : this.getClass().getDeclaredFields()) {

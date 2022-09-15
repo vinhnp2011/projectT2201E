@@ -18,8 +18,13 @@ import java.util.ArrayList;
  **/
 public class StoreData {
     static ArrayList<NhomHangDao> nhomHangs  = new ArrayList<>();
-    static ArrayList<DonHangDao>  donHangs = new ArrayList<>();
     static ArrayList<SanPhamDao>  sanPhams = new ArrayList<>();
+    static ArrayList<DonHangDao>  donHangs = new ArrayList<>();
+
+    public static Integer sizeNhomHang = nhomHangs.size();
+    public static Integer sizeSanPham  = sanPhams.size();
+    public static Integer sizeDonHang  = donHangs.size();
+
 
     NhomHangMapper nhomHangMapper = new NhomHangMapper();
     SanPhamMapper sanPhamMapper = new SanPhamMapper();
@@ -41,6 +46,7 @@ public class StoreData {
 
     public NhomHang save(NhomHangDao nhomHangDao) {
         this.nhomHangs.add(nhomHangDao);
+        sizeNhomHang =nhomHangs.size();
         return nhomHangMapper.mapEntityToDto(nhomHangDao);
     }
 //
@@ -50,6 +56,7 @@ public class StoreData {
 
     public SanPham save(SanPhamDao sanPhamDao) {
         this.sanPhams.add(sanPhamDao);
+        sizeSanPham =sanPhams.size();
         return sanPhamMapper.mapEntityToDto(sanPhamDao);
 
     }

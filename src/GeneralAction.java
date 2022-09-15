@@ -1,6 +1,7 @@
 
 
 import dto.NhomHang;
+import dto.SanPham;
 import service.DonHangService;
 import service.NhomHangService;
 import service.SanPhamService;
@@ -12,6 +13,7 @@ import service.impl.SanPhamServiceImpl;
 
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -38,7 +40,9 @@ public class GeneralAction {
                 tableView.viewNhomHangTable(Arrays.asList(nhomHangService.them(nhomHang)));
                 break;
             case CommonUtils.SAN_PHAM:
+                SanPham sanPham = inputSanPham("add");
 
+                System.out.println(sanPhamService.them(sanPham));
                 break;
             case CommonUtils.DON_HANG:
 
@@ -46,25 +50,48 @@ public class GeneralAction {
         }
     }
 
+    private SanPham inputSanPham(String inputType) {
+        SanPham sanPham = new SanPham();
+
+        System.out.print("Danh sach nhom hang:");
+        System.out.println();
+        List<NhomHang> lsInput = nhomHangService.hienThi();
+        tableView.viewNhomHangTable(lsInput);
+        System.out.print("san pham nay thuoc nhom hang nao(Ghi ma so Nhom hang): ");
+        String idPrdType = sc.next();
+
+        sanPham.setMaNhomHang(idPrdType);
+
+        String getMaSanPham = CommonUtils.autoGenIdProduct(idPrdType);
+        sanPham.setMaSphamStr(getMaSanPham);
+        return sanPham;
+
+    }
+
+
     private NhomHang inputNhomHang(String inputType) {
-        Long getMaNhomHang;
+        String getMaNhomHang;
         String getTenNhomHang;
         Double getVat;
-        System.out.print("Ma nhom hang: ");
-         getMaNhomHang = sc.nextLong();
-        if(!inputType.equals("search")) {
+        getMaNhomHang = CommonUtils.autoGenIdProdType();
+        if (!inputType.equals("search")) {
+
             System.out.print("Ten nhom hang: ");
             getTenNhomHang = sc.next();
 
             System.out.print("vat: ");
             getVat = sc.nextDouble();
-        }else {
-            getTenNhomHang ="";
+
+        } else {
+
+            System.out.print("Ma nhom hang: ");
+            getMaNhomHang = sc.next();
+            getTenNhomHang = "";
             getVat = 0.0;
         }
         System.out.println();
 
-        return new NhomHang(getMaNhomHang,getTenNhomHang,getVat);
+        return new NhomHang(getMaNhomHang, getTenNhomHang, getVat);
     }
 
     void showAction(String name) {

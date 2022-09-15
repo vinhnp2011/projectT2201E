@@ -6,6 +6,7 @@ import dto.NhomHang;
 import dto.SanPham;
 import mapper.NhomHangMapper;
 import mapper.SanPhamMapper;
+import utils.CommonUtils;
 
 /**
  * @author VinhNP
@@ -18,31 +19,35 @@ public class FakeData {
     SanPhamMapper sanPhamMapper = new SanPhamMapper();
     public FakeData() {
         createFakeDataNhomHangDao();
+//        createFakeDataSanPhamDao();
     }
 
     public void createFakeDataNhomHangDao() {
         int fakeSzDataDefault = 5;
         for (int i = 0; i < fakeSzDataDefault; i++) {
-            NhomHang nhomHang = new NhomHang(Long.valueOf(i), "Ten nhom hang " + i, 5.0 + Double.valueOf(i));
+            NhomHang nhomHang = new NhomHang(
+                    CommonUtils.autoGenIdProdType(),
+                    "Ten nhom hang " + i,
+                    5.0 + Double.valueOf(i));
             storeData.save(nhomHangMapper.mapDtoToEntity(nhomHang));
         }
     }
 
-    public void createFakeDataSanPhamDao() {
-        int fakeSzDataDefault = 5;
-        for (int i = 0; i < fakeSzDataDefault; i++) {
-            SanPham sanPham = new SanPham();
-            sanPham.setMaNhomHang(0L);
-            sanPham.setMaVach(0L);
-            sanPham.setMaSpham(0L);
-            sanPham.setTenSpham(0L);
-            sanPham.setMoTa("");
-            sanPham.setGiaNhap(0L);
-            sanPham.setGiaBan(0L);
-            sanPham.setVat(0.0D);
-            storeData.save(sanPhamMapper.mapDtoToEntity(sanPham));
-        }
-    }
+//    public void createFakeDataSanPhamDao() {
+//        int fakeSzDataDefault = 5;
+//        for (int i = 0; i < fakeSzDataDefault; i++) {
+//            SanPham sanPham = new SanPham();
+//            sanPham.setMaNhomHang(0L);
+//            sanPham.setMaVach(0L);
+//            sanPham.setMaSpham(0L);
+//            sanPham.setTenSpham(0L);
+//            sanPham.setMoTa("");
+//            sanPham.setGiaNhap(0L);
+//            sanPham.setGiaBan(0L);
+//            sanPham.setVat(0.0D);
+//            storeData.save(sanPhamMapper.mapDtoToEntity(sanPham));
+//        }
+//    }
 }
 //Long.valueOf(i)
 //Long.valueOf(i)

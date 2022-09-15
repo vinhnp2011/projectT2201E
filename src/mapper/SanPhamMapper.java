@@ -18,6 +18,7 @@ public class SanPhamMapper {
         sanPham.setMaNhomHang(sanPhamDao.getMaNhomHang());
         sanPham.setMaVach(sanPhamDao.getMaVach());
         sanPham.setMaSpham(sanPhamDao.getMaSpham());
+        sanPham.setMaSphamStr(sanPhamDao.getMaSphamStr());
         sanPham.setTenSpham(sanPhamDao.getTenSpham());
         sanPham.setMoTa(sanPhamDao.getMoTa());
         sanPham.setGiaNhap(sanPhamDao.getGiaNhap());
@@ -41,6 +42,7 @@ public class SanPhamMapper {
         sanPham.setMaNhomHang(sanPhamDao.getMaNhomHang());
         sanPham.setMaVach(sanPhamDao.getMaVach());
         sanPham.setMaSpham(sanPhamDao.getMaSpham());
+        sanPham.setMaSphamStr(sanPhamDao.getMaSphamStr());
         sanPham.setTenSpham(sanPhamDao.getTenSpham());
         sanPham.setMoTa(sanPhamDao.getMoTa());
         sanPham.setGiaNhap(sanPhamDao.getGiaNhap());
@@ -55,6 +57,7 @@ public class SanPhamMapper {
         sanPhamDao.setMaNhomHang(sanPham.getMaNhomHang());
         sanPhamDao.setMaVach(sanPham.getMaVach());
         sanPhamDao.setMaSpham(sanPham.getMaSpham());
+        sanPhamDao.setMaSphamStr(sanPham.getMaSphamStr());
         sanPhamDao.setTenSpham(sanPham.getTenSpham());
         sanPhamDao.setMoTa(sanPham.getMoTa());
         sanPhamDao.setGiaNhap(sanPham.getGiaNhap());
@@ -78,6 +81,7 @@ public class SanPhamMapper {
         sanPhamDao.setMaNhomHang(sanPham.getMaNhomHang());
         sanPhamDao.setMaVach(sanPham.getMaVach());
         sanPhamDao.setMaSpham(sanPham.getMaSpham());
+        sanPhamDao.setMaSphamStr(sanPham.getMaSphamStr());
         sanPhamDao.setTenSpham(sanPham.getTenSpham());
         sanPhamDao.setMoTa(sanPham.getMoTa());
         sanPhamDao.setGiaNhap(sanPham.getGiaNhap());
