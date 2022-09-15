@@ -1,22 +1,17 @@
 
 
-import dao.NhomHangDao;
-import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.asciitable.CWC_LongestLine;
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import dto.NhomHang;
-import dto.SanPham;
 import service.DonHangService;
 import service.NhomHangService;
 import service.SanPhamService;
-import service.ShowTable;
+import utils.CommonUtils;
+import view.TableView;
 import service.impl.DonHangServiceImpl;
 import service.impl.NhomHangServiceImpl;
 import service.impl.SanPhamServiceImpl;
 
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,33 +19,33 @@ import java.util.Scanner;
  * @description
  * @date(MM-dd-yyyy HH:mm) 09-13-2022 00:30
  **/
-public class Aaction {
-
+public class GeneralAction {
+    static Scanner sc = new Scanner(System.in);
     DonHangService donHangService = new DonHangServiceImpl();
     NhomHangService nhomHangService = new NhomHangServiceImpl();
     SanPhamService sanPhamService = new SanPhamServiceImpl();
-    ShowTable showTable = new ShowTable();
+    TableView tableView = new TableView();
 
-    public Aaction() {
+    public GeneralAction() {
 
     }
 
     void addAction(String name) {
         switch (name) {
-            case utils.NHOM_HANG:
+            case CommonUtils.NHOM_HANG:
                 NhomHang nhomHang = inputNhomHang("add");
 
-                showTable.showNhomHangTable(Arrays.asList(nhomHangService.them(nhomHang)));
+                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.them(nhomHang)));
                 break;
-            case utils.SAN_PHAM:
+            case CommonUtils.SAN_PHAM:
 
                 break;
-            case utils.DON_HANG:
+            case CommonUtils.DON_HANG:
 
                 break;
         }
     }
-    static Scanner sc = new Scanner(System.in);
+
     private NhomHang inputNhomHang(String inputType) {
         Long getMaNhomHang;
         String getTenNhomHang;
@@ -74,28 +69,28 @@ public class Aaction {
 
     void showAction(String name) {
         switch (name) {
-            case utils.NHOM_HANG:
-                showTable.showNhomHangTable(nhomHangService.hienThi());
+            case CommonUtils.NHOM_HANG:
+                tableView.viewNhomHangTable(nhomHangService.hienThi());
                 break;
-            case utils.SAN_PHAM:
-                showTable.showSanPhamTable(sanPhamService.hienThi());
+            case CommonUtils.SAN_PHAM:
+                tableView.viewSanPhamTable(sanPhamService.hienThi());
                 break;
-            case utils.DON_HANG:
-                showTable.showDonHangTable(donHangService.hienThi());
+            case CommonUtils.DON_HANG:
+                tableView.viewDonHangTable(donHangService.hienThi());
                 break;
         }
     }
 
     void updateAction(String name) {
         switch (name) {
-            case utils.NHOM_HANG:
+            case CommonUtils.NHOM_HANG:
                 NhomHang nhomHang = inputNhomHang("update");
-                showTable.showNhomHangTable(Arrays.asList(nhomHangService.capNhat(nhomHang)));
+                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.capNhat(nhomHang)));
                 break;
-            case utils.SAN_PHAM:
+            case CommonUtils.SAN_PHAM:
 
                 break;
-            case utils.DON_HANG:
+            case CommonUtils.DON_HANG:
 
                 break;
         }
@@ -103,13 +98,13 @@ public class Aaction {
 
     void searchAction(String name) {
         switch (name) {
-            case utils.NHOM_HANG:
+            case CommonUtils.NHOM_HANG:
                 NhomHang nhomHang = inputNhomHang("search");
-                showTable.showNhomHangTable(Arrays.asList(nhomHangService.timKiem(nhomHang)));
+                tableView.viewNhomHangTable(Arrays.asList(nhomHangService.timKiem(nhomHang)));
                 break;
-            case utils.SAN_PHAM:
+            case CommonUtils.SAN_PHAM:
                 break;
-            case utils.DON_HANG:
+            case CommonUtils.DON_HANG:
                 break;
         }
     }

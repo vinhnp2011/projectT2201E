@@ -1,5 +1,7 @@
 
 import data.FakeData;
+import utils.CommonUtils;
+import view.MenuView;
 
 import java.util.Scanner;
 
@@ -9,7 +11,7 @@ public class Menu {
 
     static FakeData fakeData = new FakeData();
     static Menu menu = new Menu();
-    static Aaction action = new Aaction();
+    static GeneralAction action = new GeneralAction();
 
 
     public Menu() {
@@ -25,25 +27,25 @@ public class Menu {
 
     void MenuParent() {
         while (true) {
-            MenuParentStr();
+            MenuView.MenuParentView();
             System.out.print("=> Moi ban chon: ");
             int choose = scPar.nextInt();
             System.out.println();
             switch (choose) {
                 case 1:
-                    System.out.println(" ==> CRUD nhom hang    ");
-                    MenuChild(utils.NHOM_HANG);
+                    System.out.println(" ==> Da chon CRUD nhom han");
+                    MenuChild(CommonUtils.NHOM_HANG);
                     break;
                 case 2:
-                    System.out.println(" ==> CRUD san pham     ");
-                    MenuChild(utils.SAN_PHAM);
+                    System.out.println(" ==> Da chon CRUD san pham");
+                    MenuChild(CommonUtils.SAN_PHAM);
                     break;
                 case 3:
-                    System.out.println(" ==> CRUD don hang     ");
-                    MenuChild(utils.DON_HANG);
+                    System.out.println(" ==> Da chon CRUD don hang");
+                    MenuChild(CommonUtils.DON_HANG);
                     break;
                 case 4:
-                    System.out.println(" ==> CRUD Bao cao      ");
+                    System.out.println(" ==> Da chon CRUD Bao cao ");
                     break;
                 case 5:
                     break;
@@ -58,7 +60,7 @@ public class Menu {
 
     void MenuChild(String name) {
         while (true) {
-            MenuChildStr(name);
+            MenuView.MenuChildView(name);
             System.out.print("=> Moi ban chon: ");
             int choose = scChild.nextInt();
             System.out.println();
@@ -72,14 +74,14 @@ public class Menu {
                     action.showAction(name);
                     break;
                 case 3:
-                    if(!name.equals(utils.DON_HANG)) {
+                    if(!name.equals(CommonUtils.DON_HANG)) {
                         System.out.println(" ==> Tim kiem " + name + " ");
                         action.searchAction(name);
                         break;
                     }
                     choose = 5;
                 case 4:
-                    if(!name.equals(utils.DON_HANG)){
+                    if(!name.equals(CommonUtils.DON_HANG)){
                         System.out.println(" ==> Cap nhat " + name + " ");
                         action.updateAction(name);
                     }
@@ -94,29 +96,5 @@ public class Menu {
                 break;
             }
         }
-    }
-
-    private void MenuParentStr() {
-        System.out.println(" +---+---- Quan ly ban hang ---------+ ");
-        System.out.println(" | 1.| CRUD nhom hang                | ");
-        System.out.println(" | 2.| CRUD san pham                 | ");
-        System.out.println(" | 3.| CRUD don hang                 | ");
-        System.out.println(" | 4.| Bao cao                       | ");
-        System.out.println(" | 5.| Ket thuc                      | ");
-        System.out.println(" +---+-------------------------------+ ");
-    }
-
-    private void MenuChildStr(String name) {
-        System.out.println(" +---+----" + name + "---------");
-        System.out.println(" | 1.| Them " + name + " ");
-        System.out.println(" | 2.| Hien thi " + name + " ");
-        if (!name.equals(utils.DON_HANG)) {
-            System.out.println(" | 3.| Tim kiem " + name + " ");
-            System.out.println(" | 4.| Cap nhat " + name + " ");
-            System.out.println(" | 5.| Ket thuc!             ");
-        } else {
-            System.out.println(" | 3.| Ket thuc!             ");
-        }
-        System.out.println(" +---+----------------------- ");
     }
 }

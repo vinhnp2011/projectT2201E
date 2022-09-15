@@ -1,13 +1,13 @@
 package dto;
 
 public class SanPham {
-    private Long maNhomHang;
-    private Long maVach;
-    private Long maSpham;
-    private Long tenSpham;
+    private Long   maNhomHang;
+    private Long   maVach;
+    private Long   maSpham;
+    private Long   tenSpham;
     private String moTa;
-    private Long giaNhap;
-    private Long giaBan;
+    private Long   giaNhap;
+    private Long   giaBan;
     private Double vat;
 
     public SanPham() {

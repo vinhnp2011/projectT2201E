@@ -7,6 +7,7 @@ import dto.DonHang;
 import dto.NhomHang;
 import dto.SanPham;
 import mapper.NhomHangMapper;
+import mapper.SanPhamMapper;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class StoreData {
     static ArrayList<SanPhamDao>  sanPhams = new ArrayList<>();
 
     NhomHangMapper nhomHangMapper = new NhomHangMapper();
+    SanPhamMapper sanPhamMapper = new SanPhamMapper();
     public StoreData() {
 
     }
@@ -45,8 +47,10 @@ public class StoreData {
 //    public void save(DonHang donHang) {
 //        this.donHangs.add(nhomHangMapper.mapDtoToEntity(donHang));
 //    }
-//
-//    public void save(SanPham sanPham) {
-//        this.sanPhams.add(sanPham);
-//    }
+
+    public SanPham save(SanPhamDao sanPhamDao) {
+        this.sanPhams.add(sanPhamDao);
+        return sanPhamMapper.mapEntityToDto(sanPhamDao);
+
+    }
 }
