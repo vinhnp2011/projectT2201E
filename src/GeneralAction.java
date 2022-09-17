@@ -67,9 +67,9 @@ public class GeneralAction {
     void updateAction(String name) {
         switch (name) {
             case CommonUtils.PRODUCT_TYPE:
-                ProductType productType = inputPrdType(CommonUtils.UPDATE_ACTION);
-                ProductType updatePrdType = productTypeService.updatePrdType(productType);
-                tableView.viewProductTypeTable(Arrays.asList(updatePrdType),CommonUtils.UPDATE_ACTION);
+//                ProductType productType = inputPrdType(CommonUtils.UPDATE_ACTION);
+//                ProductType updatePrdType = productTypeService.updatePrdType(productType);
+//                tableView.viewProductTypeTable(Arrays.asList(updatePrdType),CommonUtils.UPDATE_ACTION);
                 break;
             case CommonUtils.PRODUCT:
                 Product product = inputPrd(CommonUtils.UPDATE_ACTION);
@@ -85,10 +85,15 @@ public class GeneralAction {
     void searchAction(String name) {
         switch (name) {
             case CommonUtils.PRODUCT_TYPE:
-                ProductType nhomHang = inputPrdType(CommonUtils.SEARCH_ACTION);
-                tableView.viewProductTypeTable(Arrays.asList(productTypeService.findByIdPrdType(nhomHang)),CommonUtils.SEARCH_ACTION);
+                ProductType productType = inputPrdType(CommonUtils.SEARCH_ACTION);
+                ProductType byIdPrdType = productTypeService.findByIdPrdType(productType);
+
+                tableView.viewProductTypeTable(Arrays.asList(byIdPrdType),CommonUtils.SEARCH_ACTION);
                 break;
             case CommonUtils.PRODUCT:
+                Product product = inputPrd(CommonUtils.SEARCH_ACTION);
+                Product byIdPrd = productService.findByIdPrd(product);
+                tableView.viewProductTable(Arrays.asList(byIdPrd),CommonUtils.SEARCH_ACTION);
                 break;
             case CommonUtils.ORDER:
                 break;
@@ -98,37 +103,48 @@ public class GeneralAction {
     private Product inputPrd(String inputType) {
         System.out.print("Danh sach nhom hang: ");
         System.out.println();
-        List<ProductType> lsInput = productTypeService.findAllByIdPrdType();
-        tableView.viewProductTypeTable(lsInput,CommonUtils.FIND_ALL_ACTION);
-        System.out.print("nhom hang:(Ghi ma so Nhom hang): ");
-        String idPrdType = sc.nextLine();
+        Product product = null;
 
-        System.out.print("Ma vach: ");
-        String barcodePrd = sc.nextLine();
-        System.out.print("Ten san pham: ");
-        String namePrd = sc.nextLine();
-        System.out.print("Mo ta: ");
-        String descPrd = sc.nextLine();
-        System.out.print("Gia Nhap: ");
-        Float imPricePrd = Float.parseFloat(sc.nextLine());
-        System.out.print("Gia xuat: ");
-        Float exPricePrd = Float.parseFloat(sc.nextLine());
-        System.out.print("VAT: ");
-        Double vat = Double.parseDouble( sc.nextLine());
-
-        String idPrd = CommonUtils.autoGenIdProduct(idPrdType);
-        Boolean isSuccess = Boolean.TRUE;
-        Product product = Product.builder()
-                .idPrdType(idPrdType)
-                .barcodePrd(barcodePrd)
-                .idPrd(idPrd)
-                .namePrd(namePrd)
-                .descPrd(descPrd)
-                .imPricePrd(imPricePrd)
-                .exPricePrd(exPricePrd)
-                .vat(vat)
-                .isSuccess(isSuccess)
-                .build();
+        switch (inputType){
+            case CommonUtils.ADD_ACTION:
+                List<ProductType> lsInput = productTypeService.findAllByIdPrdType();
+                tableView.viewProductTypeTable(lsInput,CommonUtils.FIND_ALL_ACTION);
+                System.out.print("nhom hang:(Ghi ma so Nhom hang): ");
+                String idPrdType = sc.nextLine();
+                System.out.print("Ma vach: ");
+                String barcodePrd = sc.nextLine();
+                System.out.print("Ten san pham: ");
+                String namePrd = sc.nextLine();
+                System.out.print("Mo ta: ");
+                String descPrd = sc.nextLine();
+                System.out.print("Gia Nhap: ");
+                Float imPricePrd = Float.parseFloat(sc.nextLine());
+                System.out.print("Gia xuat: ");
+                Float exPricePrd = Float.parseFloat(sc.nextLine());
+                System.out.print("VAT: ");
+                Double vat = Double.parseDouble( sc.nextLine());
+                String idPrd = CommonUtils.autoGenIdProduct(idPrdType);
+                Boolean isSuccess = Boolean.TRUE;
+                product = Product.builder()
+                        .idPrdType(idPrdType)
+                        .barcodePrd(barcodePrd)
+                        .idPrd(idPrd)
+                        .namePrd(namePrd)
+                        .descPrd(descPrd)
+                        .imPricePrd(imPricePrd)
+                        .exPricePrd(exPricePrd)
+                        .vat(vat)
+                        .isSuccess(isSuccess)
+                        .build();
+                break;
+            case CommonUtils.SEARCH_ACTION:
+                System.out.print("Ma san pham: ");
+                String idPrdTypeSearch = sc.nextLine();
+                product = Product.builder()
+                        .idPrdType(idPrdTypeSearch)
+                        .build();
+                break;
+        }
 
         validatePrd(product);
         return product;
@@ -160,10 +176,8 @@ public class GeneralAction {
                 }
                 break;
             case CommonUtils.SEARCH_ACTION:
-
                 break;
         }
-
 
         productType = ProductType.builder()
                 .idPrdType(idPrdType)
@@ -171,7 +185,6 @@ public class GeneralAction {
                 .vat(getVat)
                 .isSuccess(Boolean.TRUE)
                 .build();
-
 
         validatePrdType(productType, CommonUtils.ADD_ACTION);
 

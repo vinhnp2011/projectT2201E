@@ -9,6 +9,7 @@ import dto.Product;
 import utils.CommonUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -21,15 +22,17 @@ import java.util.Objects;
 public class TableView {
     public void viewProductTypeTable(List<ProductType> lsInput,String action) {
         AsciiTable at = new AsciiTable();
-        List<String> columns = Arrays.asList("Ma", "Ten", "VAT");
+        List<String> columns = new ArrayList<>();
+        columns.addAll(Arrays.asList("Ma", "Ten", "VAT"));
+
         Boolean isFindAllAction = Boolean.FALSE;
 
         switch (action){
             case CommonUtils.ADD_ACTION:
+            case CommonUtils.SEARCH_ACTION:
                 CheckViewTableNullOrEmptyField(lsInput.get(0));
                 break;
             case CommonUtils.FIND_ALL_ACTION:
-            case CommonUtils.SEARCH_ACTION:
                 isFindAllAction = Boolean.TRUE;
                 break;
         }
@@ -43,11 +46,12 @@ public class TableView {
         at.addRule();
 
         for (ProductType obj : lsInput) {
-            List ValueOfColumnLs = Arrays.asList(
+            List ValueOfColumnLs = new ArrayList();
+            ValueOfColumnLs.addAll(Arrays.asList(
                     valueRow(obj.getIdPrdType()),
                     valueRow(obj.getNamePrdType()),
                     valueRow(obj.getVat().toString())
-            );
+            ));
             if (!(isFindAllAction || obj.getIsSuccess())) {
                 ValueOfColumnLs.add(obj.getIsSuccess().toString());
             }
@@ -63,7 +67,8 @@ public class TableView {
 
     public void viewProductTable(List<Product> lsInput, String action) {
         AsciiTable at = new AsciiTable();
-        List<String> columns = Arrays.asList("MaVach", "MaSpham", "TenSpham", "MoTa", "GiaNhap", "GiaBan", "Vat");
+        List<String> columns = new ArrayList<>();
+        columns.addAll(Arrays.asList("MaVach", "MaSpham", "TenSpham", "MoTa", "GiaNhap", "GiaBan", "Vat"));
         Boolean isFindAllAction = Boolean.FALSE;
 
         if (action.equals(CommonUtils.ADD_ACTION)) {
@@ -82,14 +87,15 @@ public class TableView {
         at.addRow(columns);
         at.addRule();
         for (Product obj : lsInput) {
-            List ValueOfColumnLs = Arrays.asList(
+            List ValueOfColumnLs = new ArrayList();
+            ValueOfColumnLs.addAll(Arrays.asList(
                     valueRow(obj.getBarcodePrd()),
                     valueRow(obj.getIdPrd()),
                     valueRow(obj.getNamePrd()),
                     valueRow(obj.getDescPrd()),
                     valueRow(obj.getImPricePrd().toString()),
                     valueRow(obj.getExPricePrd().toString()),
-                    valueRow(obj.getVat().toString()));
+                    valueRow(obj.getVat().toString())));
             if (!(isFindAllAction || obj.getIsSuccess())) {
                 ValueOfColumnLs.add(obj.getIsSuccess().toString());
             }
