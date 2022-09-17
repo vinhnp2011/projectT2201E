@@ -1,7 +1,7 @@
 package service.impl;
 
-import dao.DonHangDao;
-import dto.DonHang;
+import dao.OrderDAO;
+import dto.Order;
 import service.DonHangService;
 
 import java.util.List;
@@ -14,22 +14,22 @@ import java.util.List;
 public class DonHangServiceImpl implements DonHangService {
 
     @Override
-    public DonHang them(DonHang input) {
+    public Order them(Order input) {
         return null;
     }
 
     @Override
-    public List<DonHangDao> hienThi() {
+    public List<OrderDAO> hienThi() {
         return null;
     }
 
     @Override
-    public DonHang timKiem(DonHang inputSeach) {
+    public Order timKiem(Order inputSeach) {
         return null;
     }
 
     @Override
-    public DonHang capNhat(String name) {
+    public Order capNhat(String name) {
         return null;
     }
 }

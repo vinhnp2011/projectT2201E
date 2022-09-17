@@ -1,7 +1,7 @@
 package service;
 
-import dao.DonHangDao;
-import dto.DonHang;
+import dao.OrderDAO;
+import dto.Order;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import java.util.List;
  * @date(MM-dd-yyyy HH:mm) 09-12-2022 23:24
  **/
 public interface DonHangService{
-    DonHang them(DonHang input);
-    List<DonHangDao> hienThi();
-    DonHang timKiem(DonHang inputSeach);
-    DonHang capNhat(String name);
+    Order them(Order input);
+    List<OrderDAO> hienThi();
+    Order timKiem(Order inputSeach);
+    Order capNhat(String name);
 }

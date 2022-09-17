@@ -20,8 +20,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addPrd(Product input) {
-        ProductDAO productDAO = productMapper.mapDtoToEntity(input);
-        return  storeData.save(productDAO);
+        Product result = storeData.save(productMapper.mapDtoToEntity(input));
+        result.setIsSuccess(Boolean.TRUE);
+        return result;
     }
 
     @Override

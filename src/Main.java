@@ -3,11 +3,19 @@ import data.FakeData;
 import java.util.stream.Stream;
 
 public class Main {
-
+    static int count = 0;
     public static void main(String[] args) {
-        new FakeData();
-        Menu.MenuParent();
-        System.out.printf("Cam on ban da su dung dich vu!!!!!");
+        if(count == 0){
+            new FakeData();
+        }
+
+        try {
+            Menu.MenuParent();
+        }catch (RuntimeException rte){
+            System.out.println(rte);
+            System.out.println("Truong trinh` vua` bi out: "+ ++count + " lan vi` loi!!!!!!");
+            main(new String[]{});
+        }
     }
 
 }

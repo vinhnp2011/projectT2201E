@@ -22,7 +22,7 @@ public class MenuView {
         System.out.println(" +---+----" + name + "---------");
         System.out.println(" | 1.| Them " + name + " ");
         System.out.println(" | 2.| Hien thi " + name + " ");
-        if (!name.equals(CommonUtils.DON_HANG)) {
+        if (!name.equals(CommonUtils.ORDER)) {
             System.out.println(" | 3.| Tim kiem " + name + " ");
             System.out.println(" | 4.| Cap nhat " + name + " ");
             System.out.println(" | 5.| Ket thuc!             ");

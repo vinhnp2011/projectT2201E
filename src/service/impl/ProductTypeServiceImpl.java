@@ -20,7 +20,9 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public ProductType addPrdType(ProductType input) {
-        return storeData.save(productTypeMapper.mapDtoToEntity(input));
+        ProductType result = storeData.save(productTypeMapper.mapDtoToEntity(input));
+        result.setIsSuccess(Boolean.TRUE);
+        return result;
     }
 
     @Override

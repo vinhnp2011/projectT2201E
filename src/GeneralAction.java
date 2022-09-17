@@ -31,47 +31,52 @@ public class GeneralAction {
 
     void addAction(String name) {
         switch (name) {
-            case CommonUtils.NHOM_HANG:
-                ProductType productType = inputPrdType("add");
+            case CommonUtils.PRODUCT_TYPE:
+                ProductType productType = inputPrdType(CommonUtils.ADD_ACTION);
                 if (productType.getIsSuccess()) {
-                    tableView.viewNhomHangTable(Arrays.asList(productTypeService.addPrdType(productType)));
+                    tableView.viewProductTypeTable(Arrays.asList(productTypeService.addPrdType(productType)),CommonUtils.ADD_ACTION);
                 }
                 break;
-            case CommonUtils.SAN_PHAM:
-                Product product = inputPrd("add");
-
+            case CommonUtils.PRODUCT:
+                Product product = inputPrd(CommonUtils.ADD_ACTION);
                 System.out.println(productService.addPrd(product));
+                if (product.getIsSuccess()) {
+                    tableView.viewProductTable(Arrays.asList(productService.addPrd(product)),CommonUtils.ADD_ACTION);
+                }
                 break;
-            case CommonUtils.DON_HANG:
+            case CommonUtils.ORDER:
 
                 break;
         }
     }
 
-    void showAction(String name) {
+    void findAllAction(String name) {
         switch (name) {
-            case CommonUtils.NHOM_HANG:
-                tableView.viewNhomHangTable(productTypeService.findAllByIdPrdType());
+            case CommonUtils.PRODUCT_TYPE:
+                tableView.viewProductTypeTable(productTypeService.findAllByIdPrdType(),CommonUtils.FIND_ALL_ACTION);
                 break;
-            case CommonUtils.SAN_PHAM:
-                tableView.viewSanPhamTable(productService.findAllByIdPrd());
+            case CommonUtils.PRODUCT:
+                tableView.viewProductTable(productService.findAllByIdPrd(), CommonUtils.FIND_ALL_ACTION);
                 break;
-            case CommonUtils.DON_HANG:
-                tableView.viewDonHangTable(donHangService.hienThi());
+            case CommonUtils.ORDER:
+//                tableView.viewDonHangTable(donHangService.hienThi());
                 break;
         }
     }
 
     void updateAction(String name) {
         switch (name) {
-            case CommonUtils.NHOM_HANG:
-                ProductType nhomHang = inputPrdType("update");
-                tableView.viewNhomHangTable(Arrays.asList(productTypeService.updatePrdType(nhomHang)));
+            case CommonUtils.PRODUCT_TYPE:
+                ProductType productType = inputPrdType(CommonUtils.UPDATE_ACTION);
+                ProductType updatePrdType = productTypeService.updatePrdType(productType);
+                tableView.viewProductTypeTable(Arrays.asList(updatePrdType),CommonUtils.UPDATE_ACTION);
                 break;
-            case CommonUtils.SAN_PHAM:
-
+            case CommonUtils.PRODUCT:
+                Product product = inputPrd(CommonUtils.UPDATE_ACTION);
+                Product updatePrd = productService.updatePrd(product);
+                tableView.viewProductTable(Arrays.asList(updatePrd),CommonUtils.UPDATE_ACTION);
                 break;
-            case CommonUtils.DON_HANG:
+            case CommonUtils.ORDER:
 
                 break;
         }
@@ -79,83 +84,124 @@ public class GeneralAction {
 
     void searchAction(String name) {
         switch (name) {
-            case CommonUtils.NHOM_HANG:
-                ProductType nhomHang = inputPrdType("search");
-                tableView.viewNhomHangTable(Arrays.asList(productTypeService.findByIdPrdType(nhomHang)));
+            case CommonUtils.PRODUCT_TYPE:
+                ProductType nhomHang = inputPrdType(CommonUtils.SEARCH_ACTION);
+                tableView.viewProductTypeTable(Arrays.asList(productTypeService.findByIdPrdType(nhomHang)),CommonUtils.SEARCH_ACTION);
                 break;
-            case CommonUtils.SAN_PHAM:
+            case CommonUtils.PRODUCT:
                 break;
-            case CommonUtils.DON_HANG:
+            case CommonUtils.ORDER:
                 break;
         }
     }
 
     private Product inputPrd(String inputType) {
-        Product product = new Product();
-
-        System.out.print("Danh sach nhom hang:");
+        System.out.print("Danh sach nhom hang: ");
         System.out.println();
         List<ProductType> lsInput = productTypeService.findAllByIdPrdType();
-        tableView.viewNhomHangTable(lsInput);
-        System.out.print("san pham nay thuoc nhom hang nao(Ghi ma so Nhom hang): ");
-        String idPrdType = sc.next();
+        tableView.viewProductTypeTable(lsInput,CommonUtils.FIND_ALL_ACTION);
+        System.out.print("nhom hang:(Ghi ma so Nhom hang): ");
+        String idPrdType = sc.nextLine();
 
-        product.setIdPrdType(idPrdType);
+        System.out.print("Ma vach: ");
+        String barcodePrd = sc.nextLine();
+        System.out.print("Ten san pham: ");
+        String namePrd = sc.nextLine();
+        System.out.print("Mo ta: ");
+        String descPrd = sc.nextLine();
+        System.out.print("Gia Nhap: ");
+        Float imPricePrd = Float.parseFloat(sc.nextLine());
+        System.out.print("Gia xuat: ");
+        Float exPricePrd = Float.parseFloat(sc.nextLine());
+        System.out.print("VAT: ");
+        Double vat = Double.parseDouble( sc.nextLine());
 
         String idPrd = CommonUtils.autoGenIdProduct(idPrdType);
-        product.setIdPrd(idPrd);
+        Boolean isSuccess = Boolean.TRUE;
+        Product product = Product.builder()
+                .idPrdType(idPrdType)
+                .barcodePrd(barcodePrd)
+                .idPrd(idPrd)
+                .namePrd(namePrd)
+                .descPrd(descPrd)
+                .imPricePrd(imPricePrd)
+                .exPricePrd(exPricePrd)
+                .vat(vat)
+                .isSuccess(isSuccess)
+                .build();
+
+        validatePrd(product);
         return product;
     }
 
     private ProductType inputPrdType(String inputType) {
         ProductType productType = new ProductType();
         String idPrdType;
+        String getTenNhomHang = "";
+        double getVat = 0.0;
+
 //        getIdPrdType = CommonUtils.autoGenIdProdType();
+
         System.out.print("Ma nhom hang: ");
         idPrdType = sc.nextLine();
-        String getTenNhomHang = "";
-        Double getVat = 0.0;
-        if (!inputType.equals("search")) {
 
-            System.out.print("Ten nhom hang: ");
-            getTenNhomHang = sc.nextLine();
-            System.out.print("VAT: ");
-            try {
-                getVat = Double.parseDouble(sc.nextLine());
-            } catch (RuntimeException e) {
-                System.out.println("error.input.vat: VAT chi duoc phep dien so!");
-                productType.setIsSuccess(Boolean.FALSE);
-                return productType;
-            }
-        } else {
-            System.out.print("Ma nhom hang: ");
-            idPrdType = sc.nextLine();
+        switch (inputType){
+            case CommonUtils.ADD_ACTION:
+                System.out.print("Ten nhom hang: ");
+                getTenNhomHang = sc.nextLine();
+
+                System.out.print("VAT: ");
+                try {
+                    getVat = Double.parseDouble(sc.nextLine());
+                } catch (RuntimeException e) {
+                    System.out.println("error.input.vat: VAT chi duoc phep dien so!");
+                    productType.setIsSuccess(Boolean.FALSE);
+                    return productType;
+                }
+                break;
+            case CommonUtils.SEARCH_ACTION:
+
+                break;
         }
-        productType = new ProductType(idPrdType, getTenNhomHang, getVat, Boolean.TRUE);
 
-        validatePrdType(productType);
+
+        productType = ProductType.builder()
+                .idPrdType(idPrdType)
+                .namePrdType(getTenNhomHang)
+                .vat(getVat)
+                .isSuccess(Boolean.TRUE)
+                .build();
+
+
+        validatePrdType(productType, CommonUtils.ADD_ACTION);
 
         return productType;
     }
 
-    void validatePrdType(ProductType nhomHang) {
+    void validatePrdType(ProductType productType,String action) {
         int countError = 0;
-        for (ProductType obj : productTypeService.findAllByIdPrdType()) {
-            if (obj.getIdPrdType().equals(nhomHang.getIdPrdType())) {
-                CommonUtils.errorMess("error.input.idPrdType: Dau vao \"Ma nhom hang\" bi trung! Nhap lai!!");
+
+        if (!action.equals(CommonUtils.SEARCH_ACTION)){
+                for (ProductType obj : productTypeService.findAllByIdPrdType()) {
+                    if (obj.getIdPrdType().equals(productType.getIdPrdType())) {
+                        CommonUtils.errorMess("error.input.idPrdType: Dau vao \"Ma nhom hang\" bi trung! Nhap lai!!");
+                        countError++;
+                    }
+                }
+
+            if (!(productType.getVat() >= 0) || !(productType.getVat() <= 1)) {
+                CommonUtils.errorMess("error.input.vat: Dau vao \"VAT\" chi nam trong pham vi tu 0 -> 1!");
+                countError++;
+            }
+
+            if (Pattern.compile(" ").matcher(productType.getNamePrdType()).find()) {
+                CommonUtils.errorMess("error.input.namePrdType: Dau vao \"Ten nhom hang\" Khong duoc co khoang trang!");
                 countError++;
             }
         }
-        if (!(nhomHang.getVat() >= 0) || !(nhomHang.getVat() <= 1)) {
-            CommonUtils.errorMess("error.input.vat: Dau vao \"VAT\" chi nam trong pham vi tu 0 -> 1!");
-            countError++;
-        }
-        if (Pattern.compile(" ").matcher(nhomHang.getNamePrdType()).find()) {
-            CommonUtils.errorMess("error.input.namePrdType: Dau vao \"Ten nhom hang\" Khong duoc co khoang trang!");
-            countError++;
-        }
+
         if (countError > 0) {
-            nhomHang.setIsSuccess(Boolean.FALSE);
+            productType.setIsSuccess(Boolean.FALSE);
         }
     }
 

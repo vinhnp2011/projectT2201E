@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DonHang {
-
-    private Long maKH;
-    private String tenKH;
-    private List<Product> productList;
-    private LocalDateTime ngayMuahang;
+public class Order {
+    private String idOrder;
+    private String nameCusOrder;
+    private List<Product> lstPrdOrder;
+    private LocalDateTime dateOrder;
 
 }

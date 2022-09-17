@@ -1,6 +1,6 @@
 package data;
 
-import dao.DonHangDao;
+import dao.OrderDAO;
 import dao.ProductTypeDAO;
 import dao.ProductDAO;
 import dto.ProductType;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class StoreData {
     static ArrayList<ProductTypeDAO> productTypeDAOS = new ArrayList<>();
     static ArrayList<ProductDAO> productDAOS = new ArrayList<>();
-    static ArrayList<DonHangDao>  donHangs = new ArrayList<>();
+    static ArrayList<OrderDAO>  donHangs = new ArrayList<>();
 
     public static Integer sizeNhomHang = productTypeDAOS.size();
     public static Integer sizeSanPham  = productDAOS.size();
@@ -35,7 +35,7 @@ public class StoreData {
         return productTypeDAOS;
     }
 
-    public ArrayList<DonHangDao> getDonHang() {
+    public ArrayList<OrderDAO> getDonHang() {
         return donHangs;
     }
 

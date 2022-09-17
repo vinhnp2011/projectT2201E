@@ -22,10 +22,11 @@ public class FakeData {
     public void createFakeDataNhomHangDao() {
         int fakeSzDataDefault = 5;
         for (int i = 0; i < fakeSzDataDefault; i++) {
-            ProductType nhomHang = new ProductType(
-                    CommonUtils.autoGenIdProdType(),
-                    "Ten nhom hang " + i,
-                    5.0 + Double.valueOf(i),Boolean.TRUE);
+            ProductType nhomHang = ProductType.builder()
+                    .idPrdType(CommonUtils.autoGenIdProdType())
+                    .namePrdType("Ten nhom hang " + i)
+                    .vat( 1 - Double.valueOf(i) * 0.1)
+                    .isSuccess(Boolean.TRUE).build();
             storeData.save(productTypeMapper.mapDtoToEntity(nhomHang));
         }
     }
@@ -46,11 +47,3 @@ public class FakeData {
 //        }
 //    }
 }
-//Long.valueOf(i)
-//Long.valueOf(i)
-//"ma Spham" + i
-//"ten Spham" + i
-//"mo Ta" + i
-//"gia Nhap" +
-//"gia Ban"
-//"vat"

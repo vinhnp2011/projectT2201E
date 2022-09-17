@@ -2,6 +2,7 @@ package dao;
 
 import dto.Product;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,8 +13,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DonHangDao {
-    private String tenKH;
-    private List<Product> dsSpham;
-    private LocalDateTime ngayMuahang;
+public class OrderDAO {
+    private String idOrder;
+    private String nameCusOrder;
+    private List<Product> lstPrdOrder;
+    private Instant dateOrder;
 }

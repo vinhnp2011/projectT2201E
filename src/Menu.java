@@ -1,5 +1,4 @@
 
-import data.FakeData;
 import utils.CommonUtils;
 import view.MenuView;
 
@@ -16,24 +15,24 @@ public class Menu {
             MenuView.MenuParentView();
             System.out.print("=> Moi ban chon: ");
             int choose = scPar.nextInt();
-            System.out.println();
             switch (choose) {
                 case 1:
                     System.out.println(" ==> Da chon CRUD nhom han");
-                    MenuChild(CommonUtils.NHOM_HANG);
+                    MenuChild(CommonUtils.PRODUCT_TYPE);
                     break;
                 case 2:
                     System.out.println(" ==> Da chon CRUD san pham");
-                    MenuChild(CommonUtils.SAN_PHAM);
+                    MenuChild(CommonUtils.PRODUCT);
                     break;
                 case 3:
                     System.out.println(" ==> Da chon CRUD don hang");
-                    MenuChild(CommonUtils.DON_HANG);
+                    MenuChild(CommonUtils.ORDER);
                     break;
                 case 4:
                     System.out.println(" ==> Da chon CRUD Bao cao ");
                     break;
                 case 5:
+                    System.out.println(" Cam on ban da su dung dich vu!");
                     break;
                 default:
                     System.out.println("ko co lua chon: " + choose + "! Xin vui long chon lai!!!!");
@@ -57,17 +56,17 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println(" ==> Hien thi " + name + " ");
-                    action.showAction(name);
+                    action.findAllAction(name);
                     break;
                 case 3:
-                    if (!name.equals(CommonUtils.DON_HANG)) {
+                    if (!name.equals(CommonUtils.ORDER)) {
                         System.out.println(" ==> Tim kiem " + name + " ");
                         action.searchAction(name);
                         break;
                     }
                     choose = 5;
                 case 4:
-                    if (!name.equals(CommonUtils.DON_HANG)) {
+                    if (!name.equals(CommonUtils.ORDER)) {
                         System.out.println(" ==> Cap nhat " + name + " ");
                         action.updateAction(name);
                     }
