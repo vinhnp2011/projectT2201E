@@ -38,11 +38,25 @@ public class ProductServiceImpl implements ProductService {
         if (optionalProductDAO.isEmpty()) {
             return new Product();
         }
-        return productMapper.mapEntityToDto(optionalProductDAO.get());
+        Product product = productMapper.mapEntityToDto(optionalProductDAO.get());
+        product.setIsSuccess(Boolean.TRUE);
+        return product;
     }
 
     @Override
     public Product updatePrd(Product inputSeach) {
-        return null;
+        storeData.getSanPham().stream().forEach(
+                obj -> {
+                    if (obj.getIdPrd().equals(inputSeach.getIdPrd())) {
+                                obj.setBarcodePrd(inputSeach.getBarcodePrd());
+                                obj.setNamePrd(inputSeach.getNamePrd());
+                                obj.setDescPrd(inputSeach.getDescPrd());
+                                obj.setImPricePrd(inputSeach.getImPricePrd());
+                                obj.setExPricePrd(inputSeach.getExPricePrd());
+                                obj.setVat(inputSeach.getVat());
+                    }
+                }
+        );
+        return findByIdPrd(inputSeach);
     }
 }

@@ -1,5 +1,6 @@
 package data;
 
+import dto.Product;
 import dto.ProductType;
 import mapper.ProductTypeMapper;
 import mapper.ProductMapper;
@@ -16,7 +17,7 @@ public class FakeData {
     ProductMapper productMapper = new ProductMapper();
     public FakeData() {
         createFakeDataNhomHangDao();
-//        createFakeDataSanPhamDao();
+        createFakeDataSanPhamDao();
     }
 
     public void createFakeDataNhomHangDao() {
@@ -31,19 +32,22 @@ public class FakeData {
         }
     }
 
-//    public void createFakeDataSanPhamDao() {
-//        int fakeSzDataDefault = 5;
-//        for (int i = 0; i < fakeSzDataDefault; i++) {
-//            SanPham sanPham = new SanPham();
-//            sanPham.setIdPrdType(0L);
-//            sanPham.setBarcodePrd(0L);
-//            sanPham.setIdPrd(0L);
-//            sanPham.setNamePrd(0L);
-//            sanPham.setDescPrd("");
-//            sanPham.setImPricePrd(0L);
-//            sanPham.setExPricePrd(0L);
-//            sanPham.setVat(0.0D);
-//            storeData.save(sanPhamMapper.mapDtoToEntity(sanPham));
-//        }
-//    }
+    public void createFakeDataSanPhamDao() {
+        int fakeSzDataDefault = 5;
+        for (int i = 0; i < fakeSzDataDefault; i++) {
+            Product sanPham =dto.Product.builder()
+                    .idPrdType("idPrdType test " + i)
+                    .barcodePrd("barcodePrd test" + i)
+                    .idPrd(CommonUtils.autoGenIdProduct(""))
+                    .namePrd("namePrd test " + i)
+                    .descPrd("descPrd test " + i)
+                    .imPricePrd(1f + i)
+                    .exPricePrd(2f + i)
+                    .vat( 1 - Double.valueOf(i) * 0.1)
+                    .isSuccess(Boolean.TRUE)
+                    .build();
+
+            storeData.save(productMapper.mapDtoToEntity(sanPham));
+        }
+    }
 }

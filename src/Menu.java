@@ -5,16 +5,15 @@ import view.MenuView;
 import java.util.Scanner;
 
 public class Menu {
-    static Scanner scPar = new Scanner(System.in);
-    static Scanner scChild = new Scanner(System.in);
     static GeneralAction action = new GeneralAction();
 
 
     static void MenuParent() {
+        Scanner sc = new Scanner(System.in);
         while (true) {
             MenuView.MenuParentView();
             System.out.print("=> Moi ban chon: ");
-            int choose = scPar.nextInt();
+            int choose = sc.nextInt();
             switch (choose) {
                 case 1:
                     System.out.println(" ==> Da chon CRUD nhom han");
@@ -44,10 +43,11 @@ public class Menu {
     }
 
     static void MenuChild(String name) {
+        Scanner sc = new Scanner(System.in);
         while (true) {
             MenuView.MenuChildView(name);
             System.out.print("=> Moi ban chon: ");
-            int choose = scChild.nextInt();
+            int choose = sc.nextInt();
             System.out.println();
             switch (choose) {
                 case 1:

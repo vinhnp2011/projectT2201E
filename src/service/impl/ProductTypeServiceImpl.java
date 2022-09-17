@@ -32,13 +32,15 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public ProductType findByIdPrdType(ProductType inputSeach) {
-        Optional<ProductTypeDAO> nhomHang = storeData.getNhomHang().stream().filter(
+        Optional<ProductTypeDAO> productTypeDAOOptional = storeData.getNhomHang().stream().filter(
                 obj -> obj.getIdProductType().equals(inputSeach.getIdPrdType())
         ).findFirst();
-        if (nhomHang.isEmpty()) {
+        if (productTypeDAOOptional.isEmpty()) {
             return new ProductType();
         }
-        return productTypeMapper.mapEntityToDto(nhomHang.get());
+        ProductType productType = productTypeMapper.mapEntityToDto(productTypeDAOOptional.get());
+        productType.setIsSuccess(Boolean.TRUE);
+        return productType;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package service;
 
 import dto.Product;
-import dto.ProductType;
-
 import java.util.List;
 
 /**

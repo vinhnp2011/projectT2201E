@@ -11,8 +11,8 @@ public class Main {
 
         try {
             Menu.MenuParent();
-        }catch (RuntimeException rte){
-            System.out.println(rte);
+        }catch (Exception e){
+            System.out.println(e);
             System.out.println("Truong trinh` vua` bi out: "+ ++count + " lan vi` loi!!!!!!");
             main(new String[]{});
         }

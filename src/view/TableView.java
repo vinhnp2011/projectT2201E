@@ -40,7 +40,6 @@ public class TableView {
         if (!(isFindAllAction || lsInput.get(0).getIsSuccess())) {
             columns.add("IsSuccess");
         }
-
         at.addRule();
         at.addRow(columns);
         at.addRule();
@@ -71,12 +70,15 @@ public class TableView {
         columns.addAll(Arrays.asList("MaVach", "MaSpham", "TenSpham", "MoTa", "GiaNhap", "GiaBan", "Vat"));
         Boolean isFindAllAction = Boolean.FALSE;
 
-        if (action.equals(CommonUtils.ADD_ACTION)) {
-            CheckViewTableNullOrEmptyField(lsInput.get(0));
-        }
-
-        if (action.equals(CommonUtils.FIND_ALL_ACTION)) {
-            isFindAllAction = Boolean.TRUE;
+        switch (action){
+            case CommonUtils.ADD_ACTION:
+            case CommonUtils.UPDATE_ACTION:
+            case CommonUtils.SEARCH_ACTION:
+                CheckViewTableNullOrEmptyField(lsInput.get(0));
+                break;
+            case CommonUtils.FIND_ALL_ACTION:
+                isFindAllAction = Boolean.TRUE;
+                break;
         }
 
         if (!(isFindAllAction || lsInput.get(0).getIsSuccess())) {
