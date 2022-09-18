@@ -3,8 +3,12 @@ package service.impl;
 import dao.ProductDAO;
 import data.StoreData;
 import dto.Product;
+import mapper.OrderMapper;
 import mapper.ProductMapper;
+import mapper.ProductTypeMapper;
+import service.OrderService;
 import service.ProductService;
+import service.ProductTypeService;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +19,9 @@ import java.util.Optional;
  * @date(MM-dd-yyyy HH:mm) 09-12-2022 23:24
  **/
 public class ProductServiceImpl implements ProductService {
+
     StoreData storeData = new StoreData();
     ProductMapper productMapper = new ProductMapper();
-
     @Override
     public Product addPrd(Product input) {
         Product result = storeData.save(productMapper.mapDtoToEntity(input));
@@ -27,12 +31,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAllByIdPrd() {
-        return productMapper.mapEntitiesToDtos(storeData.getSanPham());
+        return productMapper.mapEntitiesToDtos(storeData.getValuePrd());
     }
 
     @Override
     public Product findByIdPrd(Product inputSeach) {
-        Optional<ProductDAO> optionalProductDAO = storeData.getSanPham().stream().filter(
+        Optional<ProductDAO> optionalProductDAO = storeData.getValuePrd().stream().filter(
                 obj -> obj.getIdPrd().equals(inputSeach.getIdPrd())
         ).findFirst();
         if (optionalProductDAO.isEmpty()) {
@@ -45,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updatePrd(Product inputSeach) {
-        storeData.getSanPham().stream().forEach(
+        storeData.getValuePrd().stream().forEach(
                 obj -> {
                     if (obj.getIdPrd().equals(inputSeach.getIdPrd())) {
                                 obj.setBarcodePrd(inputSeach.getBarcodePrd());

@@ -1,4 +1,10 @@
-package dao;
+package dto;
+
+/**
+ * @author VinhNP
+ * @description
+ * @date(MM-dd-yyyy HH:mm) 09-18-2022 22:35
+ **/
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +15,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductDAO {
-    private String idPrdType;
-    private String barcodePrd;
-    private String idPrd;
+public class ReportProduct {
+
     private String namePrd;
-    private String descPrd;
     private Float imPricePrd;
     private Float exPricePrd;
     private Double vat;
+    private Integer totalQuantityPrdPurchase;
+    private Double income;
+
 }
