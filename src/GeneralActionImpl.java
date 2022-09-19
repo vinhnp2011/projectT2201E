@@ -111,7 +111,7 @@ public class GeneralActionImpl implements GeneralAction{
                 tableView.viewReportTable(reportProducts, CommonUtils.REPORT_ORDER,null);
                 break;
             case CommonUtils.REPORT_TOP3:
-                System.out.print("Muon lay du lieu thang nao: ");
+                System.out.print("Muon lay du lieu thang nao(Du lieu fake san la thang 9): ");
                 int month = Integer.parseInt(sc.nextLine());
 //                int month = 9;
                 List<ReportProduct> reportProductsTop3Month =  reportService.getTop3MonthOrder(month);
