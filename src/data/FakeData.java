@@ -14,7 +14,12 @@ import service.impl.OrderServiceImpl;
 import service.impl.ProductServiceImpl;
 import utils.CommonUtils;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.MonthDay;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,17 +75,17 @@ public class FakeData {
 
     public void createFakeDataOrderDao() {
         Map<String, ProductOrder> map = new HashMap<>();
-        map.put("0000", ProductOrder.builder().idPrd("0000").quantityPerPrd(5).build() );
-        map.put("0001", ProductOrder.builder().idPrd("0001").quantityPerPrd(5).build() );
-        map.put("0002", ProductOrder.builder().idPrd("0002").quantityPerPrd(5).build() );
-        map.put("0003", ProductOrder.builder().idPrd("0003").quantityPerPrd(5).build() );
+        map.put("0000", ProductOrder.builder().idPrd("0000").quantityPerPrd(3).build() );
+        map.put("0001", ProductOrder.builder().idPrd("0001").quantityPerPrd(2).build() );
+        map.put("0002", ProductOrder.builder().idPrd("0002").quantityPerPrd(1).build() );
+        map.put("0003", ProductOrder.builder().idPrd("0003").quantityPerPrd(4).build() );
         map.put("0004", ProductOrder.builder().idPrd("0004").quantityPerPrd(5).build() );
 
-        map.put("0000", ProductOrder.builder().idPrd("0000").quantityPerPrd(5).build() );
-        map.put("0001", ProductOrder.builder().idPrd("0001").quantityPerPrd(5).build() );
-        map.put("0002", ProductOrder.builder().idPrd("0002").quantityPerPrd(5).build() );
-        map.put("0003", ProductOrder.builder().idPrd("0003").quantityPerPrd(5).build() );
-        map.put("0004", ProductOrder.builder().idPrd("0004").quantityPerPrd(5).build() );
+        map.put("0000", ProductOrder.builder().idPrd("0000").quantityPerPrd(9).build() );
+        map.put("0001", ProductOrder.builder().idPrd("0001").quantityPerPrd(6).build() );
+        map.put("0002", ProductOrder.builder().idPrd("0002").quantityPerPrd(7).build() );
+        map.put("0003", ProductOrder.builder().idPrd("0003").quantityPerPrd(8).build() );
+        map.put("0004", ProductOrder.builder().idPrd("0004").quantityPerPrd(11).build() );
 
         int fakeSzDataDefault = 7;
         for (int i = 0; i < fakeSzDataDefault; i++) {
@@ -93,4 +98,21 @@ public class FakeData {
             storeData.save(orderMapper.mapDtoToEntity(order));
         }
     }
+
+        public static void main(String[] args) {
+
+            Instant instant = Instant.parse("2022-09-15T18:35:24.00Z");
+
+            Date myDate = Date.from(instant);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String formattedDate = formatter.format(myDate);
+            System.out.println(formattedDate);
+
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+            int month = localDateTime.getMonthValue();
+            System.out.println(month);
+
+
+
+        }
 }

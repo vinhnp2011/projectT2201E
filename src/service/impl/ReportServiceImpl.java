@@ -8,6 +8,8 @@ import service.OrderService;
 import service.ProductService;
 import service.ReportService;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -90,7 +92,7 @@ public class ReportServiceImpl implements ReportService {
                 .stream()
                 .filter( order ->
                 {
-                    if(month.equals(Date.from(order.getDateOrder()).getMonth())){
+                    if(month.equals(LocalDateTime.ofInstant(order.getDateOrder(), ZoneId.systemDefault()).getMonthValue())){
                         return true;
                     }
                     return false;
@@ -149,8 +151,21 @@ public class ReportServiceImpl implements ReportService {
             value.setIncome(totalInComePerPrd);
             outputMap.put(stringReportProductEntry.getKey(), value);
         });
-        ReportProduct[] a = new ReportProduct[3];
-         outputMap.values().stream().sorted(Comparator.comparingDouble(ReportProduct::getIncome)).collect(Collectors.toList());
-        return null;
+
+        List collect = outputMap.values().stream().collect(Collectors.toList());
+        return buildTop(collect,3);
+    }
+
+    public List<ReportProduct> buildTop(List<ReportProduct> lstAll, int num) {
+        List<ReportProduct> top = new ArrayList<>();
+        lstAll = lstAll.stream().sorted(Comparator.comparing(ReportProduct::getTotalQuantityPrdPurchase).reversed()).collect(Collectors.toList());
+        if (lstAll.size() < 5) {
+            num = lstAll.size();
+        }
+        for (int idx = 0; idx < num; idx++) {
+            top.add(lstAll.get(idx));
+        }
+
+        return top;
     }
 }

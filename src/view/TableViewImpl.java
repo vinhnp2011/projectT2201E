@@ -121,40 +121,53 @@ public class TableViewImpl implements TableView {
     }
 
     @Override
-    public void viewReportTable(List<ReportProduct> lsInput, String action) {
+    public void viewReportTable(List<ReportProduct> lsInput, String action, Integer Month) {
         AsciiTable at = new AsciiTable();
         List<String> columns = new ArrayList<>();
-        columns.addAll(Arrays.asList("Ten San pham", "Gia dau vao", "Gia dau ra", "So luong da ban", "Doanh thu"));
 
 
-//        switch (action){
-//            case CommonUtils.ADD_ACTION:
-//            case CommonUtils.UPDATE_ACTION:
-//            case CommonUtils.SEARCH_ACTION:
-//                checkViewTableNullOrEmptyField(lsInput.get(0));
-//                break;
-//            case CommonUtils.FIND_ALL_ACTION:
-//                isFindAllAction = Boolean.TRUE;
-//                break;
-//        }
+        switch (action){
+            case CommonUtils.REPORT_ORDER:
+                columns.addAll(Arrays.asList("Ten San pham", "Gia dau vao", "Gia dau ra", "So luong da ban", "Doanh thu"));
+                break;
+            case CommonUtils.REPORT_TOP3:
+                System.out.println("TOP 3 So luong san pham Thang " + Month);
+                columns.addAll(Arrays.asList(" Top ","Ten San pham", " So luong ban ra  ", "Doanh thu"));
+                break;
+        }
 
 
         at.addRule();
         at.addRow(columns);
         at.addRule();
+        int sttTop = 1;
         for (ReportProduct obj : lsInput) {
             List<String> ValueOfColumnLs = new ArrayList<>();
-            ValueOfColumnLs.addAll(Arrays.asList(
-                            valueRow(obj.getNamePrd()),
-                            valueRow(obj.getImPricePrd().toString()),
-                            valueRow(obj.getExPricePrd().toString()),
-                            valueRow(obj.getTotalQuantityPrdPurchase().toString()),
-                            valueRow(obj.getIncome().toString())
-                    )
-            );
 
+            switch (action){
+                case CommonUtils.REPORT_ORDER:
+                    ValueOfColumnLs.addAll(Arrays.asList(
+                                    valueRow(obj.getNamePrd()),
+                                    valueRow(obj.getImPricePrd().toString()),
+                                    valueRow(obj.getExPricePrd().toString()),
+                                    valueRow(obj.getTotalQuantityPrdPurchase().toString()),
+                                    valueRow(obj.getIncome().toString())
+                            )
+                    );
+                    break;
+                case CommonUtils.REPORT_TOP3:
+                    ValueOfColumnLs.addAll(Arrays.asList(
+                                    valueRow(" Top " + sttTop + " "),
+                                    valueRow(obj.getNamePrd()),
+                                    valueRow(obj.getTotalQuantityPrdPurchase().toString()),
+                                    valueRow(obj.getIncome().toString())
+                            )
+                    );
+                    break;
+            }
             at.addRow(ValueOfColumnLs);
             at.addRule();
+            sttTop++;
         }
         at.setTextAlignment(TextAlignment.CENTER);
         CWC_LongestLine cwc = new CWC_LongestLine();

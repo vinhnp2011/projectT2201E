@@ -18,5 +18,5 @@ public interface TableView {
     void viewProductTable(List<Product> lsInput, String action);
 
     void viewOrderTable(List<Order> lsInput, String action);
-    void viewReportTable(List<ReportProduct> lsInput, String action);
+    void viewReportTable(List<ReportProduct> lsInput, String action, Integer Month);
 }

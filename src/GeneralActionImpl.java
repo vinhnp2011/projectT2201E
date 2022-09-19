@@ -108,11 +108,14 @@ public class GeneralActionImpl implements GeneralAction{
         switch (nameChil) {
             case CommonUtils.REPORT_ORDER:
                 List<ReportProduct> reportProducts =  reportService.getReportOrder();
-                tableView.viewReportTable(reportProducts, CommonUtils.REPORT_ORDER);
+                tableView.viewReportTable(reportProducts, CommonUtils.REPORT_ORDER,null);
                 break;
             case CommonUtils.REPORT_TOP3:
-                List<ReportProduct> reportProductsTop3Month =  reportService.getTop3MonthOrder(9);
-                tableView.viewReportTable(reportProductsTop3Month, CommonUtils.REPORT_ORDER);
+                System.out.print("Muon lay du lieu thang nao: ");
+                int month = Integer.parseInt(sc.nextLine());
+//                int month = 9;
+                List<ReportProduct> reportProductsTop3Month =  reportService.getTop3MonthOrder(month);
+                tableView.viewReportTable(reportProductsTop3Month, CommonUtils.REPORT_TOP3,month);
                 break;
 
         }

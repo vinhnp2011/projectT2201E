@@ -12,6 +12,7 @@ public interface GeneralAction {
     void updateAction(String name);
 
     void searchAction(String name);
+
     void reportAction(String namePar, String nameChil);
 
 }
