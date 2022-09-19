@@ -73,6 +73,7 @@ public class Menu {
                 break;
             case 3:
                 System.out.println(" ==> Ket thuc " + name + "! ");
+                choose = 5;
                 break;
             default:
                 System.out.println("ko co lua chon: " + choose + "! Xin vui long chon lai!!!!");
